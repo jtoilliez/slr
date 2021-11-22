@@ -1,6 +1,9 @@
 import typing
 import numpy as np
 from pandas import Series
+from pandas import DataFrame
+from pandas import concat
+from matplotlib.pyplot import Axes
 
 M_TO_FT = 3.281
 
@@ -180,16 +183,30 @@ class Dataset:
         self.baseline_year = baseline_year
         self.data = Data(units=units, data=data)
 
-    @property
-    def units(self):
-        return self.data.units
-
     def __repr__(self) -> str:
         s = (
             f"Dataset '{self.short_name}', values are given in {self.units} "
             f"and years range from {self.data.x[0]} to {self.data.x[-1]}"
         )
         return s
+
+    @property
+    def units(self):
+        return self.data.units
+
+    @property
+    def dataframe(self) -> Series:
+        """Returns a DataFrame built from x and y in the Dataset
+
+        Returns
+        -------
+        DataFrame
+            DataFrame containing x values as index and y values as values.
+        """
+        df = DataFrame(
+            data={f"{self.short_name} [{self.units}]": self.data.y}, index=self.data.x
+        )
+        return df
 
 
 # SeaLevelRise contains SLR Dataset objects for a given location
@@ -229,6 +246,15 @@ class SeaLevelRise:
         # Additional attributes
         self.shape = (len(self.datasets),)
 
+    def __repr__(self) -> str:
+        s = f"Sea level rise at {self.description}; {self.shape[0]} Dataset(s) available"
+        return s
+
+    @property
+    def dataframe(self):
+        df = concat([dataset_.dataframe for dataset_ in self.datasets], axis=1)
+        return df
+
     @property
     def units(self):
         # Returns the units of each Dataset
@@ -240,10 +266,6 @@ class SeaLevelRise:
             return units[0]
         else:
             return units
-
-    def __repr__(self) -> str:
-        s = f"Sea level rise at {self.description}; {self.shape[0]} Dataset(s) available"
-        return s
 
     def by_horizon_date(self, horizon_year: float, coerce_errors: bool = False) -> None:
         """Generate a Series with projected values for SLR
@@ -288,3 +310,23 @@ class SeaLevelRise:
             name=f"SLR at {self.description} by {horizon_year} [{self.units}]",
         )
         return ds
+
+    def plot(self, ax: Axes, horizon_year: float = None) -> Axes:
+
+        # Graphics
+        for index, series in self.dataframe.iteritems():
+            ax.plot(series, label=series.name)
+
+        # Handle horizon year
+        if horizon_year is not None:
+            temp_ds_horizon = self.by_horizon_date(horizon_year=horizon_year)
+            ax.axvline(x=horizon_year, **{"ls": "--", "lw": 1, "c": "lightgray"})
+            for name, val in temp_ds_horizon.iteritems():
+                ax.scatter(x=horizon_year, y=val)
+
+        # Plot all values
+        ax.set_ylabel(f"SLR [{self.units}]")
+        ax.set_title(f"SLR for {self.description}")
+        ax.legend()
+
+        return ax
