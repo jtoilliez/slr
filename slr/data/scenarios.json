@@ -2,13 +2,14 @@
     "San Francisco": {
         "description": "San Francisco, CA",
         "station ID (CO-OPS)": "9414290",
-        "dataset": [
+        "datasets": [
             {
                 "description": "High Emission, Low Risk (Likely Range)",
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
                 "recommended by OPC": "yes",
+                "baseline year": 2000,
                 "data": {
                     "x": [
                         2030,
@@ -38,6 +39,7 @@
                 "units": "ft",
                 "probability (CDF)": 0.995,
                 "recommended by OPC": "yes",
+                "baseline year": 2000,
                 "data": {
                     "x": [
                         2030,
@@ -65,8 +67,9 @@
                 "description": "High Emission, Extreme Risk (H++ Scenario)",
                 "short name": "Extreme Risk",
                 "units": "ft",
-                "probability (CDF)": "> 0.999",
+                "probability (CDF)": null,
                 "recommended by OPC": "yes",
+                "baseline year": 2000,
                 "data": {
                     "x": [
                         2030,
@@ -95,13 +98,14 @@
     "Los Angeles": {
         "description": "Los Angeles, CA",
         "station ID (CO-OPS)": "9410660",
-        "dataset": [
+        "datasets": [
             {
                 "description": "High Emission, Low Risk (Likely Range)",
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
                 "recommended by OPC": "yes",
+                "baseline year": 2000,
                 "data": {
                     "x": [
                         2030,
@@ -131,6 +135,7 @@
                 "units": "ft",
                 "probability (CDF)": 0.995,
                 "recommended by OPC": "yes",
+                "baseline year": 2000,
                 "data": {
                     "x": [
                         2030,
@@ -158,8 +163,9 @@
                 "description": "High Emission, Extreme Risk (H++ Scenario)",
                 "short name": "Extreme Risk",
                 "units": "ft",
-                "probability (CDF)": "> 0.999",
+                "probability (CDF)": null,
                 "recommended by OPC": "yes",
+                "baseline year": 2000,
                 "data": {
                     "x": [
                         2030,
@@ -188,13 +194,14 @@
     "Crescent City": {
         "description": "Crescent City, CA",
         "station ID (CO-OPS)": "9419750",
-        "dataset": [
+        "datasets": [
             {
                 "description": "High Emission, Low Risk (Likely Range)",
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
                 "recommended by OPC": "yes",
+                "baseline year": 2000,
                 "data": {
                     "x": [
                         2030,
@@ -224,6 +231,7 @@
                 "units": "ft",
                 "probability (CDF)": 0.995,
                 "recommended by OPC": "yes",
+                "baseline year": 2000,
                 "data": {
                     "x": [
                         2030,
@@ -251,8 +259,9 @@
                 "description": "High Emission, Extreme Risk (H++ Scenario)",
                 "short name": "Extreme Risk",
                 "units": "ft",
-                "probability (CDF)": "> 0.999",
+                "probability (CDF)": null,
                 "recommended by OPC": "yes",
+                "baseline year": 2000,
                 "data": {
                     "x": [
                         2030,
