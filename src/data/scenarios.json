@@ -2,7 +2,7 @@
     "San Francisco": {
         "description": "San Francisco, CA",
         "station ID (CO-OPS)": "9414290",
-        "datasets": [
+        "scenarios": [
             {
                 "description": "High Emission, Low Risk (Likely Range)",
                 "short name": "Low Risk",
@@ -98,7 +98,7 @@
     "Los Angeles": {
         "description": "Los Angeles, CA",
         "station ID (CO-OPS)": "9410660",
-        "datasets": [
+        "scenarios": [
             {
                 "description": "High Emission, Low Risk (Likely Range)",
                 "short name": "Low Risk",
@@ -194,7 +194,7 @@
     "Crescent City": {
         "description": "Crescent City, CA",
         "station ID (CO-OPS)": "9419750",
-        "datasets": [
+        "scenarios": [
             {
                 "description": "High Emission, Low Risk (Likely Range)",
                 "short name": "Low Risk",
