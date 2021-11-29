@@ -2,7 +2,7 @@
 Sea Level Rise for Python
 
 ## Installation
-The best way to install the package is to pip install from GitHub.com
+The best way to install the package is to pip install from GitHub.com, or cloning the repo on your local machine.
 
 ## Quickstart (Jupyter)
 
@@ -80,3 +80,115 @@ plt.tight_layout()
 Here is what this should now look like:
 
 ![projections-plus](https://user-images.githubusercontent.com/46502166/143791670-ebfab835-3084-44e6-bcfb-a770f001c4ee.png)
+
+## Customizing the `scenarios.json` File
+
+SLR works by loading a JSON file located under `.\data\scenarios.json`. The format of the file mimics the structure of `SLRScenarios` and `Scenario` class instances. An example is shown for San Francisco, CA. The data was extracted from the 2018 State of California Sea-level Rise Guidance document published by the Ocean Council.
+
+```json
+{
+    "San Francisco": {
+        "description": "San Francisco, CA",
+        "station ID (CO-OPS)": "9414290",
+        "scenarios": [
+            {
+                "description": "High Emission, Low Risk (Likely Range)",
+                "short name": "Low Risk",
+                "units": "ft",
+                "probability (CDF)": 0.83,
+                "recommended by OPC": "yes",
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100
+                    ],
+                    "y": [
+                        0.5,
+                        0.8,
+                        1.1,
+                        1.5,
+                        1.9,
+                        2.4,
+                        2.9,
+                        3.4
+                    ]
+                }
+            },
+            {
+                "description": "High Emission, Medium-High Risk (1-in-200 Chance)",
+                "short name": "Medium Risk",
+                "units": "ft",
+                "probability (CDF)": 0.995,
+                "recommended by OPC": "yes",
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100
+                    ],
+                    "y": [
+                        0.8,
+                        1.3,
+                        1.9,
+                        2.6,
+                        3.5,
+                        4.5,
+                        5.6,
+                        6.9
+                    ]
+                }
+            },
+            {
+                "description": "High Emission, Extreme Risk (H++ Scenario)",
+                "short name": "Extreme Risk",
+                "units": "ft",
+                "probability (CDF)": null,
+                "recommended by OPC": "yes",
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100
+                    ],
+                    "y": [
+                        1.0,
+                        1.8,
+                        2.7,
+                        3.9,
+                        5.2,
+                        6.6,
+                        8.3,
+                        10.2
+                    ]
+                }
+            }
+        ]
+    }
+}
+```
+
+New locations can be added using the same nomenclature. Currently, the following fields are implemented:
+
+* "location": e.g. a string describing the `SLRScenarios` instance
+  - "description": a description of the location for the SLR scenarios, e.g., "San Francisco, CA"
+  - "station ID (CO-OPS)": the NOAA or CO-OPS identification string for the location, if available, e.g, "9414290"
+  - "scenarios": an array of JSON objects containing specific scenarios
