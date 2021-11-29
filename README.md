@@ -1,12 +1,22 @@
 # SLR
-Sea Level Rise for Python
+SLR is simple package designed to manipulate sea-level projections using the Python language.
+
+## What SLR Does
+SLR relies on a single configuration file, named `scenarios.json` to load pre-configured sea-level rise scenarios at specific locations, wrapped under a single `SLRScenarios` class instance. Custom scenarios can also be built using the `Scenario` class instance. SLR provides convenient class instances to perform the following routine tasks:
+
+* Load sea-level rise projections for a specific location
+* Display trajectories over time as plots or tables
+* Evaluate sea-level rise offset by a certain horizon date
+* Compare risk-based sea-level rise trajectories
+
+More locations can be added by modifying and contributing to the `scenarios.json` file.
 
 ## Installation
 The best way to install the package is to pip install from GitHub.com, or cloning the repo on your local machine.
 
 ## Quickstart (Jupyter)
 
-SLR provides a very easy way to manipulate sea-level rise scenario datasets. The SLR package was built with convenience in mind and is designed to facilite operations commonly encountered when dealing with sea-level rise projections. It is primarily designed to be used within Jupyter.
+SLR provides a very easy way to manipulate sea-level rise scenario datasets. The SLR package was built with convenience in mind and is designed to facilite operations commonly encountered when dealing with sea-level rise projections at specific locations. It is primarily designed to be used within Jupyter and is geared toward practitioners who need to publish their findings in reports.
 
 ### Importing SLR
 The easiest way to use SLR is to locally amend PYTHONPATH, or after installation, select:
@@ -69,10 +79,13 @@ sf_scenario
 
 Let's return to our prior example of visualization, and let's add this specific scenario:
 ```python
-# We can manipulate that make a custom plot
+# Display a base figure using the builtin method
 ax = sf.plot(horizon_year=2075)
+# Add the specific Scenario instance
 ax.plot(sf_scenario.data.x, sf_scenario.data.y, c='yellow', label='Selected for design', lw=10, alpha=.65)
+# Use the builtin class method to estimate SLR by the horizon year
 ax.axhline(y=sf_scenario.by_horizon_year(horizon_year=2075), c='k', ls='--', lw=1)
+# Update the legend
 plt.legend()
 plt.tight_layout()
 ```
