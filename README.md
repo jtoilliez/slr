@@ -2,7 +2,7 @@
 SLR is simple package designed to manipulate sea-level projections using the Python language.
 
 ## What SLR Does
-SLR relies on a single configuration file, named `scenarios.json` to load pre-configured sea-level rise scenarios at specific locations, each wrapped under its own `SLRScenarios` class instance. Custom scenarios can also be built using the `Scenario` class instance. SLR provides convenient class instances to perform the following routine tasks:
+SLR relies on a single configuration file, named `scenarios.json` to load pre-configured sea-level rise scenarios at specific locations, each wrapped under its own `SLRScenarios` class instance. Custom scenarios can also be built using the `SLRScenarios` and `Scenario` class instance. SLR provides convenient class instances to perform the following routine tasks:
 
 * Load sea-level rise projections for a specific location
 * Display trajectories over time as plots or tables
@@ -26,7 +26,7 @@ import src as slr
 ```
 
 ### Available Locations
-From that point on, wee locations available in the projection dataset:
+From that point on, we can list all locations available in the `scenarios.json` file:
 ```python
 slr.SLRScenarios.show_all_available_locations()
 ```
@@ -96,7 +96,7 @@ Here is what this should now look like:
 
 ## Customizing the `scenarios.json` File
 
-SLR works by loading a JSON file located under `.\data\scenarios.json`. The format of the file mimics the structure of `SLRScenarios` and `Scenario` class instances. An example is shown for San Francisco, CA. The data was extracted from the 2018 State of California Sea-level Rise Guidance document published by the Ocean Council.
+SLR works by loading a JSON file located under `.\data\scenarios.json`. The format of the file mimics the structure of `SLRScenarios` and `Scenario` class instances. An example is shown for San Francisco, CA. The data was extracted from the 2018 State of California Sea-level Rise Guidance document published by the Ocean Council. SLR is built upon that publication but can be used to handle others, with proper normalization.
 
 ```json
 {
