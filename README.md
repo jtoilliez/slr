@@ -2,7 +2,7 @@
 SLR is simple package designed to manipulate sea-level projections using the Python language.
 
 ## What SLR Does
-SLR relies on a single configuration file, named `scenarios.json` to load pre-configured sea-level rise scenarios at specific locations, wrapped under a single `SLRScenarios` class instance. Custom scenarios can also be built using the `Scenario` class instance. SLR provides convenient class instances to perform the following routine tasks:
+SLR relies on a single configuration file, named `scenarios.json` to load pre-configured sea-level rise scenarios at specific locations, each wrapped under its own `SLRScenarios` class instance. Custom scenarios can also be built using the `Scenario` class instance. SLR provides convenient class instances to perform the following routine tasks:
 
 * Load sea-level rise projections for a specific location
 * Display trajectories over time as plots or tables
