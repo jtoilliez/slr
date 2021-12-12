@@ -1,6 +1,6 @@
 {
     "San Francisco": {
-        "description": "San Francisco, CA",
+        "location name": "San Francisco, CA",
         "station ID (CO-OPS)": "9414290",
         "scenarios": [
             {
@@ -96,7 +96,7 @@
         ]
     },
     "Los Angeles": {
-        "description": "Los Angeles, CA",
+        "location name": "Los Angeles, CA",
         "station ID (CO-OPS)": "9410660",
         "scenarios": [
             {
@@ -192,7 +192,7 @@
         ]
     },
     "Crescent City": {
-        "description": "Crescent City, CA",
+        "location name": "Crescent City, CA",
         "station ID (CO-OPS)": "9419750",
         "scenarios": [
             {
