@@ -1,11 +1,10 @@
-from utils import ALL_SCENARIOS
-from data import Data
+from slr.utils import ALL_SCENARIOS
 
 
 def test_health_json_data():
     # Test health of the master SLR dataset
     for _, pack in ALL_SCENARIOS.items():
-        assert "description" in pack
+        assert "location name" in pack
         assert "station ID (CO-OPS)" in pack
         assert "scenarios" in pack
         for elem in pack["scenarios"]:
@@ -24,4 +23,3 @@ def test_health_json_data():
             assert "y" in elem["data"]
             assert isinstance(elem["data"]["x"], list)
             assert isinstance(elem["data"]["y"], list)
-

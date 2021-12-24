@@ -84,13 +84,15 @@ sf.convert(to_units='in')
 The conversion takes place in-place. On-the-fly conversion is not (yet) supported.
 
 ### Visualization
-We can plot `Scenario` items within a `ScenarioPack` right away: all objects are generated automatically if none are passed as arguments.
+We can plot `Scenario` items within a `ScenarioPack` right away: all Scenario items are
+plotted automatically by default.
 
 ```python
 sf.plot()
 ```
 
-We can also combine commands. In this case, let's convert to feet for easier interpretation and let's add a target date to show on the plot.
+We can also combine commands. In this case, let's convert to feet for easier 
+interpretation and let's add a target date to show on the plot.
 
 ```python
 sf.convert(to_units='ft')
@@ -101,7 +103,8 @@ Here is what this should look like:
 
 ![projections](https://user-images.githubusercontent.com/46502166/143791203-32a194a6-169a-4bb7-81e0-087fb889ffcd.png)
 
-By default, all `Scenario` items within a given `ScenarioPack` will be plotted. To select specific `Scenario` items see Section **Drilling Into Specific Scenarios** below.
+By default, all `Scenario` items within a given `ScenarioPack` will be plotted. 
+To select specific `Scenario` items see Section **Drilling Into Specific Scenarios** below.
 
 ### Calculating Projections by a Certain Date
 We can calculate the effective SLR projections by a certain date, e.g.:

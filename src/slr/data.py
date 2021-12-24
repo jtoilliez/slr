@@ -48,14 +48,17 @@ class Data:
         Parameters
         ----------
         to_units : str
-            Name of the units to convert toward, must be one of 'm', 'ft', 'in', and 'cm'
+            Name of the units to convert toward, must be one of 'm', 'ft', 'in',
+            and 'cm'
         inplace : bool, optional
             If true, the values in the data object are overwritten, by default False
 
         Returns
         -------
         typing.Union[None, np.ndarray]
-            Returns either nothing (inplace=True) or an nd.ndarray with the converted values
+            Returns either nothing (inplace=True) or an nd.ndarray with the converted
+            values
+
         """
         # Check the units
         _check_units(to_units)
@@ -108,4 +111,3 @@ class Data:
     def __repr__(self) -> str:
         s = f"Data in {self.units} ranging from {self.x[0]} to {self.x[-1]}"
         return s
-

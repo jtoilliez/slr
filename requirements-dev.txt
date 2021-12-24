@@ -1,0 +1,5 @@
+black
+flake
+pytest
+ipython
+jupyter

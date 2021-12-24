@@ -2,6 +2,7 @@
     "San Francisco": {
         "location name": "San Francisco, CA",
         "station ID (CO-OPS)": "9414290",
+        "issuer": "California OPC 2018",
         "scenarios": [
             {
                 "description": "High Emission, Low Risk (Likely Range)",
@@ -98,6 +99,7 @@
     "Los Angeles": {
         "location name": "Los Angeles, CA",
         "station ID (CO-OPS)": "9410660",
+        "issuer": "California OPC 2018",
         "scenarios": [
             {
                 "description": "High Emission, Low Risk (Likely Range)",
@@ -194,6 +196,7 @@
     "Crescent City": {
         "location name": "Crescent City, CA",
         "station ID (CO-OPS)": "9419750",
+        "issuer": "California OPC 2018",
         "scenarios": [
             {
                 "description": "High Emission, Low Risk (Likely Range)",
@@ -211,7 +214,12 @@
                         2070,
                         2080,
                         2090,
-                        2100
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
                     ],
                     "y": [
                         0.3,
@@ -221,7 +229,12 @@
                         1.2,
                         1.6,
                         2.0,
-                        2.5
+                        2.5,
+                        2.5,
+                        3.0,
+                        3.4,
+                        3.9,
+                        4.4
                     ]
                 }
             },
@@ -241,7 +254,12 @@
                         2070,
                         2080,
                         2090,
-                        2100
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
                     ],
                     "y": [
                         0.5,
@@ -251,7 +269,12 @@
                         2.8,
                         3.7,
                         4.7,
-                        5.9
+                        5.9,
+                        6.2,
+                        7.4,
+                        8.7,
+                        10.1,
+                        11.6
                     ]
                 }
             },
@@ -271,7 +294,12 @@
                         2070,
                         2080,
                         2090,
-                        2100
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
                     ],
                     "y": [
                         0.8,
@@ -281,7 +309,139 @@
                         4.5,
                         5.9,
                         7.4,
-                        9.3
+                        9.3,
+                        11.0,
+                        13.1,
+                        15.3,
+                        17.8,
+                        20.6
+                    ]
+                }
+            }
+        ]
+    },
+    "San Diego": {
+        "location name": "San Diego, CA",
+        "station ID (CO-OPS)": "9410170",
+        "issuer": "California OPC 2018",
+        "scenarios": [
+            {
+                "description": "High Emission, Low Risk (Likely Range)",
+                "short name": "Low Risk",
+                "units": "ft",
+                "probability (CDF)": 0.83,
+                "recommended by OPC": "yes",
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        0.6,
+                        0.9,
+                        1.2,
+                        1.6,
+                        2.0,
+                        2.5,
+                        3.0,
+                        3.6,
+                        3.7,
+                        4.3,
+                        4.9,
+                        5.4,
+                        6.1
+                    ]
+                }
+            },
+            {
+                "description": "High Emission, Medium-High Risk (1-in-200 Chance)",
+                "short name": "Medium Risk",
+                "units": "ft",
+                "probability (CDF)": 0.995,
+                "recommended by OPC": "yes",
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        0.9,
+                        1.3,
+                        2.0,
+                        2.7,
+                        3.6,
+                        4.6,
+                        5.7,
+                        7.0,
+                        7.5,
+                        8.8,
+                        10.2,
+                        11.7,
+                        13.3
+                    ]
+                }
+            },
+            {
+                "description": "High Emission, Extreme Risk (H++ Scenario)",
+                "short name": "Extreme Risk",
+                "units": "ft",
+                "probability (CDF)": null,
+                "recommended by OPC": "yes",
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        1.1,
+                        1.8,
+                        2.8,
+                        3.9,
+                        5.2,
+                        6.7,
+                        8.3,
+                        10.2,
+                        12.0,
+                        14.3,
+                        16.6,
+                        19.2,
+                        22.0
                     ]
                 }
             }
