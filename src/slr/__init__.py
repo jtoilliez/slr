@@ -1,4 +1,5 @@
-from .scenario import Scenario
-from .scenariopack import ScenarioPack
-from .data import Data
-from .utils import ALL_LOCATIONS, ALL_SCENARIOS
+from slr.scenario import Scenario
+from slr.scenariopack import ScenarioPack
+from slr.data import Data
+from slr.utils import ALL_LOCATIONS, ALL_SCENARIOS, ALL_KEYS
+from slr.connect import HistoricalSLR
