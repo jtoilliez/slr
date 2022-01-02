@@ -4,10 +4,12 @@ import warnings
 import re
 from typing import Union
 
+import numpy as np
+
 from functools import cache
 from slr.utils import _check_units
 from slr.scenariopack import ScenarioPack
-from pandas import Timestamp, DataFrame
+from pandas import Timestamp, DataFrame, date_range, DateOffset, Series
 
 
 class HistoricalSLR:
@@ -33,6 +35,7 @@ class HistoricalSLR:
         self._data = data
 
         # Parse data and write to object
+        self._zero_year = 2000
         self.trend = data["trend"]
         self.trend_error = data["trendError"]
         self.trend_units = re.findall(r"([a-z]*)[/].", data["units"])[0]
@@ -41,6 +44,9 @@ class HistoricalSLR:
             self.end_date = Timestamp(data["endDate"])
         except ValueError:
             raise ValueError("Unable to parse start and end dates from response.")
+
+        # Build the historical trend
+        self.timeseries = self._build_timeseries()
 
     def noaa_properties(self, format: str = None) -> Union[DataFrame, str]:
         """Properties describing the HistoricalSLR object as provided by NOAA.
@@ -89,6 +95,29 @@ class HistoricalSLR:
                 f"{self.trend * 100} {self.trend_units} in 100 years."
             )
             return out_str
+
+    def _build_timeseries(self) -> Series:
+
+        index = date_range(
+            start=Timestamp(self.start_date.year, 6, 15),
+            end=Timestamp(self.end_date.year, 6, 15),
+            freq=DateOffset(years=1),
+        )
+        values = np.full_like(index, fill_value=np.nan, dtype=float)
+        values[0] = self.trend * (self.start_date.year - self._zero_year)
+        values[-1] = self.trend * (self.end_date.year - self._zero_year)
+
+        # Stitch it together
+        ts = (
+            DataFrame(
+                data=values,
+                index=index,
+                columns=[f"Historical SLR [{self.trend_units}]"],
+            )
+            .interpolate(method="time")
+            .squeeze()
+        )
+        return ts
 
     @classmethod
     def from_scenariopack(cls, scenariopack: ScenarioPack = None):

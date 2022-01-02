@@ -36,9 +36,10 @@ def _check_units(units: str) -> None:
         String representing units, can only be one of 'ft', 'in', 'm', and 'cm'
 
     """
-    if not (units in ["ft", "in", "m", "cm"]):
+    if not (units in ["ft", "in", "m", "mm", "cm"]):
         raise ValueError(
-            f"Units {units} are not supported; only use 'ft', 'in', 'm', and 'cm'."
+            f"Units {units} are not supported; only use 'ft', 'in', 'm',"
+            f" 'mm', and 'cm'."
         )
 
 
