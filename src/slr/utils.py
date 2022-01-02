@@ -8,8 +8,8 @@ M_TO_FT = 3.281
 with open(Path(__file__).parent / "data/scenarios.json") as f:
     ALL_SCENARIOS = json.load(f)
 
-# ALL_LOCATIONS = list(ALL_SCENARIOS.keys())
 ALL_KEYS = [key_ for key_ in ALL_SCENARIOS.keys()]
+ALL_STATIONS = [value_["station ID (CO-OPS)"] for _, value_ in ALL_SCENARIOS.items()]
 
 
 def _show_available_locations(format: str = "list") -> typing.Union[list, DataFrame]:
