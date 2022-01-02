@@ -8,6 +8,8 @@ SLR relies on a single configuration file, named `scenarios.json` to load pre-co
 * Display trajectories over time as plots or tables
 * Evaluate sea-level rise offset by a certain horizon date
 * Compare risk-based sea-level rise trajectories
+* Compare historical and future trajectories
+* Convert units and modify reference water levels
 
 ### Basic Structure
 SLR relies on three classes to organize SLR data:
