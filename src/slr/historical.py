@@ -8,13 +8,41 @@ import numpy as np
 
 from functools import cache
 from slr.utils import _check_units
-from slr.scenariopack import ScenarioPack
+from slr.slrprojections import SLRProjections
 from pandas import Timestamp, DataFrame, date_range, DateOffset, Series
 
 
 class HistoricalSLR:
+    """HistoricalSLR will attempt to download and retrieve historical Sea Level
+    Rise data for a particular location. Station ID and units must be provided.
+
+    Attributes
+    ----------
+    station_ID : str, optional
+        String describing the NOAA ID, e.g. "9410660", by default None
+    units : str, optional
+        One of the allowable units to be used for storing the historical trend
+        can be either one of 'm', 'mm', 'in', 'cm', or 'ft', by default None
+
+    Methods
+    --------
+    noaa_properties(format):
+        Properties describing the HistoricalSLR object as provided by NOAA.
+    from_slrprojections(cls, slrprojections):
+        Will attempt to retrieve historical SLR information from NOAA servers using
+        a SLRProjections item as seed.s
+    """
+
     @cache
     def __init__(self, station_ID: str = None, units: str = None) -> None:
+
+        """[summary]
+
+        Raises
+        ------
+        ValueError
+            [description]
+        """
         _check_units(units)
         self._station_ID = station_ID
         self._base_URL = (
@@ -120,12 +148,13 @@ class HistoricalSLR:
         return ts
 
     @classmethod
-    def from_scenariopack(cls, scenariopack: ScenarioPack = None):
-        # Read the station ID from the scenariopack
-        location = scenariopack.station_ID
-        units = scenariopack.units
+    def from_slrprojections(cls, slrprojections: SLRProjections = None):
+        # Read the station ID from the slrprojections
+        location = slrprojections.station_ID
+        units = slrprojections.units
         if not isinstance(units, str):
             raise TypeError(
-                "There are mixed units in the ScenarioPack object. Cannot infer units."
+                "There are mixed units in the SLRProjections object."
+                "Cannot infer units."
             )
         return cls(station_ID=location, units=units)
