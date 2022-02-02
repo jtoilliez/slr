@@ -43,7 +43,8 @@ class Data:
     def convert(
         self, to_units: str, inplace: bool = False
     ) -> typing.Union[None, np.ndarray]:
-        """Convert units in data.y array
+        """Convert units in data.y array and will also adjust the units property
+        in the Data instance.
 
         Parameters
         ----------
@@ -73,6 +74,8 @@ class Data:
                 fac = 1 / M_TO_FT
             if to_units == "cm":
                 fac = 1 / M_TO_FT * 100
+            if to_units == "mm":
+                fac = 1 / M_TO_FT * 1000
         if self.units == "in":
             if to_units == "in":
                 fac = 1.0
@@ -82,6 +85,8 @@ class Data:
                 fac = 1 / 12.0 * 1 / M_TO_FT
             if to_units == "cm":
                 fac = 1 / 12.0 * 1 / M_TO_FT * 100
+            if to_units == "mm":
+                fac = 1 / 12.0 * 1 / M_TO_FT * 1000
         if self.units == "m":
             if to_units == "in":
                 fac = 12.0 * M_TO_FT
@@ -91,6 +96,8 @@ class Data:
                 fac = 1.0
             if to_units == "cm":
                 fac = 100.0
+            if to_units == "mm":
+                fac = 1000.0
         if self.units == "cm":
             if to_units == "in":
                 fac = 12.0 * M_TO_FT * 1 / 100.0
@@ -100,6 +107,8 @@ class Data:
                 fac = 1 / 100.0
             if to_units == "cm":
                 fac = 1.0
+            if to_units == "mm":
+                fac = 10.0
 
         # Apply the transformation
         if inplace:

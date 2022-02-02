@@ -1,6 +1,6 @@
 import typing
+from copy import deepcopy
 
-import numpy as np
 from matplotlib.pyplot import Axes, subplots
 from pandas import DataFrame, Series, concat
 
@@ -8,15 +8,25 @@ from .scenario import Scenario
 from .utils import (
     ALL_SCENARIOS,
     _check_units,
-    _validate_location,
     _show_available_locations,
+    _validate_location,
 )
 
 
-# ScenarioPack contains SLR Scenario objects for a given location
-class ScenarioPack:
+# SLRProjections contains SLR Scenario objects for a given location
+class SLRProjections:
     def __init__(self, data: dict = None, coerce_units: bool = True) -> None:
+        """SLRProjections contains SLR scenarios for a specific location defined
+        by its name or NOAA ID (preferred).
 
+        Parameters
+        ----------
+        data : dict, optional
+            Data describing the scenarios, by default None
+        coerce_units : bool, optional
+            If true, will harmonize units in all scenarios provided, by default True
+
+        """
         if data is not None:
             # Check that you have the right data in there
             for attr in ["location name", "station ID (CO-OPS)", "scenarios"]:
@@ -29,6 +39,7 @@ class ScenarioPack:
         # Record properties
         self.location_name = data["location name"]
         self.station_ID = data["station ID (CO-OPS)"]
+        self.issuer = data["issuer"]
 
         # Record Scenarios
         scenarios = data["scenarios"]
@@ -55,40 +66,29 @@ class ScenarioPack:
         self.shape = (len(self.scenarios),)
 
     @classmethod
-    def from_location_or_key(cls, location_or_key: str):
-        """Generates a ScenarioPack isinstance from a location contained within the
-        ALL_LOCATIONS or ALL_KEYS lists.
+    def from_location(cls, location: typing.Union[str, int]):
+        """Generates a SLRProjections isinstance from a location contained within the
+        ALL_LOCATIONS, ALL_STATIONS, or ALL_KEYS lists.
 
         Parameters
         ----------
-        location_or_key : str
-            String containing the location name of the ScenarioPack to load or
-            the key of that ScenarioPack.
+        location : typing.Union[str, int]
+        A unique identifier defining the SLRProjections item. It can be given as
+        either:
+
+        * a str as a location name e.g., '"San Francisco, CA"',
+        * or a Station ID e.g., '"9414290"'
+        * or an int (e.g., '0')
+
+        All describe the location to be used to load a specific
+        SLRProjections item.
 
         Returns
         -------
-        ScenarioPack
-            ScenarioPack instance at the specified location
+        SLRProjections
+            SLRProjections instance at the specified location
         """
-        target_key = _validate_location(location=location_or_key)
-        return cls(data=ALL_SCENARIOS[target_key])
-
-    @classmethod
-    def from_index(cls, index: int):
-        """Generates a ScenarioPack instance from an index referring to any of the
-            ALL_LOCATIONS or ALL_KEYS lists.
-
-        Parameters
-        ----------
-        location : int, optional
-            An integer containing the index of the ScenarioPack to load
-
-        Returns
-        -------
-        ScenarioPack
-            ScenarioPack instance at the specified index value
-        """
-        target_key = _validate_location(location=index)
+        target_key = _validate_location(location=location)
         return cls(data=ALL_SCENARIOS[target_key])
 
     @staticmethod
@@ -96,7 +96,7 @@ class ScenarioPack:
         format: str = "list",
     ) -> typing.Union[str, DataFrame]:
         """Simple function that lists all functions available prior to loading a
-        specific ScenarioPack instance
+        specific SLRProjections instance
 
         Parameters
         ----------
@@ -113,8 +113,9 @@ class ScenarioPack:
 
     def __repr__(self) -> str:
         s = (
-            f"Sea level rise at {self.location_name}; "
-            f"{self.shape[0]} Scenario(s) available"
+            f"Sea level rise Projections for {self.location_name} "
+            f"issued by {self.issuer}; there are "
+            f"{self.shape[0]} Scenario(s) available."
         )
         return s
 
@@ -219,20 +220,42 @@ class ScenarioPack:
             df.sort_index(inplace=True)
             return df
 
-    def convert(
-        self, to_units: str, inplace: bool = True
-    ) -> typing.Union[None, np.ndarray]:
+    def convert(self, to_units: str, inplace: bool = False) -> DataFrame:
+        """Provides on the fly or inplace units conversion for all Scenarios
+        within a SLRProjections instance.
 
+        Parameters
+        ----------
+        to_units : str
+            The value of the destination units, which can only be one of:
+            * 'm'
+            * 'cm'
+            * 'in'
+            * 'ft'
+        inplace : bool, optional
+            Wether the conversion is 'on the fly' (inplace=False),
+            or if that conversion is burnt in the current SLRProjections instance
+            (inplace=Trie). By default set to False (on-the-fly behavior)
+
+        Returns
+        -------
+        DataFrame
+            Only returns the DataFrame of the resultant converted set of projections.
+        """
         # Check the units
         _check_units(to_units)
 
         # Scan over Scenario objects and change the units
         if inplace:
             for scenario_ in self.scenarios:
-                scenario_.data.convert(to_units=to_units, inplace=inplace)
+                scenario_.data.convert(to_units=to_units, inplace=True)
             return self.dataframe
         else:
-            raise NotImplementedError("On the fly conversion not supported")
+            # create a deep copy and output it
+            temp = deepcopy(self)
+            for scenario_ in temp.scenarios:
+                scenario_.data.convert(to_units=to_units, inplace=True)
+            return temp.dataframe
 
     def plot(self, ax: Axes = None, horizon_year: float = None) -> Axes:
 

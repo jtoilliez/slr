@@ -1,5 +1,4 @@
 black
-flake
+flake8
 pytest
-ipython
 jupyter

@@ -8,11 +8,13 @@ SLR relies on a single configuration file, named `scenarios.json` to load pre-co
 * Display trajectories over time as plots or tables
 * Evaluate sea-level rise offset by a certain horizon date
 * Compare risk-based sea-level rise trajectories
+* Compare historical and future trajectories
+* Convert units and modify reference water levels
 
 ### Basic Structure
 SLR relies on three classes to organize SLR data:
 
-* `ScenarioPack` contains a collection of `Scenario` items
+* `SLRProjections` contains a collection of `Scenario` items
 * `Scenario` contains `Data` describing a specific SLR trajectory
 * `Data` contains the timeline, units, and values for that SLR trajectory
 
@@ -20,65 +22,73 @@ SLR relies on three classes to organize SLR data:
 
 ### Extensibility
 
-Custom scenarios can also be built using the `ScenarioPack`, `Scenario`, and `Data` class nomenclature. More `ScenarioPack` items can be added by modifying and contributing to the `scenarios.json` file.
+Custom scenarios can also be built using the `SLRProjections`, `Scenario`, and `Data` class nomenclature. More `SLRProjections` items can be added by modifying and contributing to the `scenarios.json` file.
 
 ## Installation
-The best way to install the package is to pip install directly from GitHub.com, or cloning the repo on your local machine. An alternative is to temporarily add the path to the cloned repo to PYTHONPATH or invoking the following at the beginning of a `Jupyter` notebook:
+The best way to install the package is to pip install directly from GitHub.com, or cloning the repo on your local machine. Activate your environment and type:
 
 ```python
-sys.path.append(<absolute_cloned_repo_directory>)
+>>> python -m pip install <absolute_cloned_repo_root_directory>
 ```
+
+An alternative is to temporarily add the path to the `src` folder to PYTHONPATH or invoking the following at the beginning of a `Jupyter` notebook:
+
+```python
+>>> sys.path.append(<absolute_cloned_repo_src_directory>)
+```
+
+Note in the above that the string appended to the PYTHONPATH should point to the **`src`** path, not the root folder location!
 
 ## Quickstart (Jupyter)
 
 SLR provides a very easy way to manipulate sea-level rise scenario datasets. The SLR package was built with convenience in mind and is designed to facilite operations commonly encountered when dealing with sea-level rise projections at specific locations. It is primarily designed to be used within Jupyter and is geared toward practitioners who need to publish their findings in reports.
 
 ### Importing SLR
-The easiest way to use SLR is to locally amend PYTHONPATH or after installation, select:
+Assuming you installed the package or appended to PYTHONPATH, all that remains to do is to import the package:
 
 ```python
-import slr
+>>> import slr
 ```
 
 ### Show All Available Locations
 From that point on, we can list all locations available in the `scenarios.json` file: these are as many `ScenarioPack` items:
 ```python
-slr.ScenarioPack.show_all_available_locations(format='list')
+>>> slr.ScenarioPack.show_all_available_locations(format='list')
 ```
 
 The locations can be displayed as a `pandas.Dataframe` for further manipulation:
 ```python
-slr.ScenarioPack.show_all_available_locations(format='dataframe')
+>>> slr.SLRProjections.show_all_available_locations(format='dataframe')
 ```
 
 ### Manipulating SLR Scenarios
 Let's load a `ScenarioPack` by invoking a specific location:
 ```python
-sf = slr.ScenarioPack.from_location_or_key(
+>>> sf = slr.ScenarioPack.from_location_or_key(
     location_or_key="San Francisco, CA
 )
 ```
 
 We could do the same using index notation:
 ```python
-sf = slr.ScenarioPack.from_index(index=0)
+>>> sf = slr.ScenarioPack.from_index(index=0)
 ```
 
 Or we could do the same thing using a key from the `scenarios.json` file:
 ```python
-sf = slr.ScenarioPack.from_key(key="San Francisco")
+>>> sf = slr.ScenarioPack.from_key(key="San Francisco")
 ```
 
 All the SLR projections contained within the `ScenarioPack` can be displayed in iPython and copy/pasted into a report
 ```python
-sf.dataframe
+>>> sf.dataframe
 ```
 
 ### Converting Units
 In some cases, units may need to be converted. `SLR` offers on-the-fly capabilities for converting `Data` to any of the allowable units. For example:
 
 ```python
-sf.convert(to_units='in')
+>>> sf.convert(to_units='in')
 ```
 
 The conversion takes place in-place. On-the-fly conversion is not (yet) supported.
@@ -88,16 +98,16 @@ We can plot `Scenario` items within a `ScenarioPack` right away: all Scenario it
 plotted automatically by default.
 
 ```python
-sf.plot()
+>>> sf.plot()
 ```
 
 We can also combine commands. In this case, let's convert to feet for easier 
 interpretation and let's add a target date to show on the plot.
 
 ```python
-sf.convert(to_units='ft')
-sf.plot(horizon_year=2075)
-plt.tight_layout()
+>>> sf.convert(to_units='ft')
+>>> sf.plot(horizon_year=2075)
+>>> plt.tight_layout()
 ```
 Here is what this should look like:
 
@@ -150,6 +160,13 @@ plt.tight_layout()
 Here is what this should now look like:
 
 ![projections-plus](https://user-images.githubusercontent.com/46502166/143791670-ebfab835-3084-44e6-bcfb-a770f001c4ee.png)
+
+### Comparing with the Historical Rate **New**
+You can attempt to retrieve the historical sea-level rise from NOAA servers. To do that, simply create a new `HistoricalSLR` instance:
+
+```python
+>>> HistoricalSLR.from_station(id=<your_NOAA_station_ID>)
+```
 
 ## Customizing the `scenarios.json` File
 

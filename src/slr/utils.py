@@ -8,8 +8,8 @@ M_TO_FT = 3.281
 with open(Path(__file__).parent / "data/scenarios.json") as f:
     ALL_SCENARIOS = json.load(f)
 
-# ALL_LOCATIONS = list(ALL_SCENARIOS.keys())
 ALL_KEYS = [key_ for key_ in ALL_SCENARIOS.keys()]
+ALL_STATIONS = [value_["station ID (CO-OPS)"] for _, value_ in ALL_SCENARIOS.items()]
 
 
 def _show_available_locations(format: str = "list") -> typing.Union[list, DataFrame]:
@@ -36,53 +36,68 @@ def _check_units(units: str) -> None:
         String representing units, can only be one of 'ft', 'in', 'm', and 'cm'
 
     """
-    if not (units in ["ft", "in", "m", "cm"]):
+    if not (units in ["ft", "in", "m", "mm", "cm"]):
         raise ValueError(
-            f"Units {units} are not supported; only use 'ft', 'in', 'm', and 'cm'."
+            f"Units {units} are not supported; only use 'ft', 'in', 'm',"
+            f" 'mm', and 'cm'."
         )
 
 
 # Check that location is valid
 def _validate_location(location: typing.Union[str, int]) -> str:
-    """Validates key given as either a location name or an index
+    """Validates location, station, or key given to locate a SLRProjections item
 
     Parameters
     ----------
     location : typing.Union[str, int]
-        Either a str as a location name e.g., '"San Francisco, CA"', or a key
-        e.g., '"San Francisco" or an int (e.g., '0') describing the location to be used
-        to load a specific ScenarioPack
+        A unique identifier defining the SLRProjections item. It can be given as
+        either:
+
+        * a str as a location name e.g., '"San Francisco, CA"',
+        * or a Station ID e.g., '"9414290"'
+        * or an int (e.g., '0')
+
+        All describe the location to be used to load a specific
+        SLRProjections item.
 
     Returns
     -------
     str
-        Key of the requested ScenarioPack
+        Key of the requested SLRProjections item
 
+    Examples
+    -------
+    Use the NOAA Station ID:
+    >>> utils._validate_location(location="9410660")
+    '9410660'
+
+    Use the location:
+    >>> utils._validate_location(location="Los Angeles, CA")
+    '9410660'
+
+    Use an index:
+    >>> utils._validate_location(location=0)
+    '9414290'
     """
     if isinstance(location, int):
         if not (location in list(range(0, len(ALL_LOCATIONS)))):
-            raise ValueError("Index notation exceeds length of locations")
+            raise IndexError(
+                "Index notation exceeds length of SLRProjections items available."
+            )
         else:
             target_key = ALL_KEYS[location]
     elif isinstance(location, str):
-        if not (location in ALL_LOCATIONS):
-            if location in ALL_KEYS:
-                target_key = location
-            else:
-                raise ValueError(
-                    "Make sure location is present in the dataset either as an "
-                    "index, key, or a location name."
-                )
+        # Try these:
+        if location in ALL_LOCATIONS:
+            target_key = ALL_KEYS[ALL_LOCATIONS.index(location)]
+        elif location in ALL_KEYS:
+            target_key = location
+        elif location in ALL_STATIONS:
+            target_key = ALL_KEYS[ALL_STATIONS.index(location)]
         else:
-            # Find the corresponding key based on location name
-            i = 0
-            while not location == ALL_LOCATIONS[i]:
-                i += 1
-            target_key = ALL_KEYS[i]
-    else:
-        raise ValueError(
-            "Make sure location is present in the dataset either as an "
-            "index, key, or a location name."
-        )
+            raise KeyError(
+                "Make sure location is specified either as an "
+                "station ID, a key, or a location name."
+            )
 
     return target_key
