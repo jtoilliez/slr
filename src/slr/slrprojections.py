@@ -1,6 +1,6 @@
 import typing
+from copy import deepcopy
 
-import numpy as np
 from matplotlib.pyplot import Axes, subplots
 from pandas import DataFrame, Series, concat
 
@@ -8,8 +8,8 @@ from .scenario import Scenario
 from .utils import (
     ALL_SCENARIOS,
     _check_units,
-    _validate_location,
     _show_available_locations,
+    _validate_location,
 )
 
 
@@ -39,6 +39,7 @@ class SLRProjections:
         # Record properties
         self.location_name = data["location name"]
         self.station_ID = data["station ID (CO-OPS)"]
+        self.issuer = data["issuer"]
 
         # Record Scenarios
         scenarios = data["scenarios"]
@@ -76,7 +77,6 @@ class SLRProjections:
         either:
 
         * a str as a location name e.g., '"San Francisco, CA"',
-        * or a key e.g., '"San Francisco",
         * or a Station ID e.g., '"9414290"'
         * or an int (e.g., '0')
 
@@ -113,8 +113,9 @@ class SLRProjections:
 
     def __repr__(self) -> str:
         s = (
-            f"Sea level rise at {self.location_name}; "
-            f"{self.shape[0]} Scenario(s) available"
+            f"Sea level rise Projections for {self.location_name} "
+            f"issued by {self.issuer}; there are "
+            f"{self.shape[0]} Scenario(s) available."
         )
         return s
 
@@ -219,20 +220,42 @@ class SLRProjections:
             df.sort_index(inplace=True)
             return df
 
-    def convert(
-        self, to_units: str, inplace: bool = True
-    ) -> typing.Union[None, np.ndarray]:
+    def convert(self, to_units: str, inplace: bool = False) -> DataFrame:
+        """Provides on the fly or inplace units conversion for all Scenarios
+        within a SLRProjections instance.
 
+        Parameters
+        ----------
+        to_units : str
+            The value of the destination units, which can only be one of:
+            * 'm'
+            * 'cm'
+            * 'in'
+            * 'ft'
+        inplace : bool, optional
+            Wether the conversion is 'on the fly' (inplace=False),
+            or if that conversion is burnt in the current SLRProjections instance
+            (inplace=Trie). By default set to False (on-the-fly behavior)
+
+        Returns
+        -------
+        DataFrame
+            Only returns the DataFrame of the resultant converted set of projections.
+        """
         # Check the units
         _check_units(to_units)
 
         # Scan over Scenario objects and change the units
         if inplace:
             for scenario_ in self.scenarios:
-                scenario_.data.convert(to_units=to_units, inplace=inplace)
+                scenario_.data.convert(to_units=to_units, inplace=True)
             return self.dataframe
         else:
-            raise NotImplementedError("On the fly conversion not supported")
+            # create a deep copy and output it
+            temp = deepcopy(self)
+            for scenario_ in temp.scenarios:
+                scenario_.data.convert(to_units=to_units, inplace=True)
+            return temp.dataframe
 
     def plot(self, ax: Axes = None, horizon_year: float = None) -> Axes:
 

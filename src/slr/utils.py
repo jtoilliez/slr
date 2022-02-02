@@ -54,7 +54,6 @@ def _validate_location(location: typing.Union[str, int]) -> str:
         either:
 
         * a str as a location name e.g., '"San Francisco, CA"',
-        * or a key e.g., '"San Francisco",
         * or a Station ID e.g., '"9414290"'
         * or an int (e.g., '0')
 
@@ -70,20 +69,15 @@ def _validate_location(location: typing.Union[str, int]) -> str:
     -------
     Use the NOAA Station ID:
     >>> utils._validate_location(location="9410660")
-    'Los Angeles'
+    '9410660'
 
     Use the location:
     >>> utils._validate_location(location="Los Angeles, CA")
-    'Los Angeles'
+    '9410660'
 
-    Use a index:
+    Use an index:
     >>> utils._validate_location(location=0)
-    'San Francisco'
-
-    Finally, use the key directly:
-    >>> utils._validate_location(location="San Francisco")
-    'San Francisco'
-
+    '9414290'
     """
     if isinstance(location, int):
         if not (location in list(range(0, len(ALL_LOCATIONS)))):

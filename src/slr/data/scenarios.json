@@ -1,5 +1,5 @@
 {
-    "San Francisco": {
+    "9414290": {
         "location name": "San Francisco, CA",
         "station ID (CO-OPS)": "9414290",
         "issuer": "California OPC 2018",
@@ -96,7 +96,7 @@
             }
         ]
     },
-    "Los Angeles": {
+    "9410660": {
         "location name": "Los Angeles, CA",
         "station ID (CO-OPS)": "9410660",
         "issuer": "California OPC 2018",
@@ -193,7 +193,7 @@
             }
         ]
     },
-    "Crescent City": {
+    "9419750": {
         "location name": "Crescent City, CA",
         "station ID (CO-OPS)": "9419750",
         "issuer": "California OPC 2018",
@@ -320,7 +320,7 @@
             }
         ]
     },
-    "San Diego": {
+    "9410170": {
         "location name": "San Diego, CA",
         "station ID (CO-OPS)": "9410170",
         "issuer": "California OPC 2018",
@@ -442,6 +442,133 @@
                         16.6,
                         19.2,
                         22.0
+                    ]
+                }
+            }
+        ]
+    },
+    "9418767": {
+        "location name": "North Spit, CA",
+        "station ID (CO-OPS)": "9418767",
+        "issuer": "California OPC 2018",
+        "scenarios": [
+            {
+                "description": "High Emission, Low Risk (Likely Range)",
+                "short name": "Low Risk",
+                "units": "ft",
+                "probability (CDF)": 0.83,
+                "recommended by OPC": "yes",
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        0.7,
+                        1.1,
+                        1.5,
+                        1.9,
+                        2.4,
+                        2.9,
+                        3.5,
+                        4.1,
+                        4.3,
+                        4.9,
+                        5.5,
+                        6.2,
+                        6.8
+                    ]
+                }
+            },
+            {
+                "description": "High Emission, Medium-High Risk (1-in-200 Chance)",
+                "short name": "Medium Risk",
+                "units": "ft",
+                "probability (CDF)": 0.995,
+                "recommended by OPC": "yes",
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        1.0,
+                        1.6,
+                        2.3,
+                        3.1,
+                        4.0,
+                        5.1,
+                        6.2,
+                        7.6,
+                        8.0,
+                        9.4,
+                        10.9,
+                        12.5,
+                        14.1
+                    ]
+                }
+            },
+            {
+                "description": "High Emission, Extreme Risk (H++ Scenario)",
+                "short name": "Extreme Risk",
+                "units": "ft",
+                "probability (CDF)": null,
+                "recommended by OPC": "yes",
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        1.2,
+                        2.0,
+                        3.1,
+                        4.3,
+                        5.6,
+                        7.2,
+                        8.9,
+                        10.9,
+                        12.7,
+                        15.0,
+                        17.4,
+                        20.1,
+                        23.0
                     ]
                 }
             }

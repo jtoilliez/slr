@@ -43,7 +43,8 @@ class Data:
     def convert(
         self, to_units: str, inplace: bool = False
     ) -> typing.Union[None, np.ndarray]:
-        """Convert units in data.y array
+        """Convert units in data.y array and will also adjust the units property
+        in the Data instance.
 
         Parameters
         ----------
