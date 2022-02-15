@@ -9,7 +9,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -39,7 +39,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -69,7 +69,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -106,7 +106,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -136,7 +136,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -166,7 +166,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -203,7 +203,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -243,7 +243,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -283,7 +283,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -330,7 +330,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -370,7 +370,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -410,7 +410,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -457,7 +457,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -497,7 +497,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -537,7 +537,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
