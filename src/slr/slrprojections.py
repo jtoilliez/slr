@@ -70,6 +70,9 @@ class SLRProjections:
         """Generates a SLRProjections isinstance from a location contained within the
         ALL_LOCATIONS, ALL_STATIONS, or ALL_KEYS lists.
 
+        The recommended identifier is the key referring to a given set of
+        SLR projections.
+
         Parameters
         ----------
         location : typing.Union[str, int]
@@ -79,9 +82,12 @@ class SLRProjections:
         * a str as a location name e.g., '"San Francisco, CA"',
         * or a Station ID e.g., '"9414290"'
         * or an int (e.g., '0')
+        * a key from the scenarios.json file, e.g., 'cocat-2018-9414290'
 
         All describe the location to be used to load a specific
         SLRProjections item.
+
+        In case multiple matches are possible, the first match will be returned.
 
         Returns
         -------

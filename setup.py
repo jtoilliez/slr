@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="pysealevelrise",
+    name="slr",
     version="0.1",
     author="Jean O. Toilliez",
     author_email="JNOT@COWI",

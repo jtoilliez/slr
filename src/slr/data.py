@@ -31,9 +31,9 @@ class Data:
         if not (("x" in data.keys()) and ("y" in data.keys())):
             raise ValueError("Need 'x' and 'y' keys in the 'data' object")
 
-        # Actually load the data
-        self.x = np.array(data["x"])
-        self.y = np.array(data["y"])
+        # Actually load the data; any null values are converted to nan by imposing dtype
+        self.x = np.array(data["x"], dtype=np.float)
+        self.y = np.array(data["y"], dtype=np.float)
         self._units = units
 
     @property

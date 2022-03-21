@@ -1,5 +1,238 @@
 {
-    "9414290": {
+    "nj-dep-2021": {
+        "location name": "New Jersey",
+        "station ID (CO-OPS)": null,
+        "issuer": "New Jersey Department of Environmental Protection",
+        "URL": "https://www.nj.gov/dep/bcrp/resilientnj/docs/dep-guidance-on-sea-level-rise-2021.pdf",
+        "scenarios": [
+            {
+                "description": "Low end; Greater than a 95% chance SLR exceeds",
+                "short name": "Low end",
+                "units": "ft",
+                "probability (CDF)": 0.05,
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2000,
+                        2010,
+                        2020,
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        null,
+                        null,
+                        0.1,
+                        0.3,
+                        0.5,
+                        0.7,
+                        0.8,
+                        1.0,
+                        1.1,
+                        1.2,
+                        1.3,
+                        1.6,
+                        1.6,
+                        1.7,
+                        1.9,
+                        2.1
+                    ]
+                }
+            },
+            {
+                "description": "Lower end of the likely range; Greater than an 83% chance SLR exceeds",
+                "short name": "Lower end of the likely range",
+                "units": "ft",
+                "probability (CDF)": 0.17,
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2000,
+                        2010,
+                        2020,
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        null,
+                        null,
+                        0.3,
+                        0.5,
+                        0.7,
+                        0.9,
+                        1.2,
+                        1.4,
+                        1.6,
+                        1.8,
+                        2.0,
+                        2.3,
+                        2.4,
+                        2.6,
+                        2.9,
+                        3.1
+                    ]
+                }
+            },
+            {
+                "description": "Central estimate; 50% chance SLR exceeds",
+                "short name": "Center of the likely range",
+                "units": "ft",
+                "probability (CDF)": 0.50,
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2000,
+                        2010,
+                        2020,
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        0.0,
+                        0.2,
+                        0.5,
+                        0.8,
+                        1.1,
+                        1.4,
+                        1.8,
+                        2.2,
+                        2.6,
+                        3.0,
+                        3.3,
+                        3.7,
+                        4.1,
+                        4.5,
+                        4.9,
+                        5.2
+                    ]
+                }
+            },
+            {
+                "description": "Upper end of the likely range; less than 17% chance SLR exceeds",
+                "short name": "Upper end of the likely range",
+                "units": "ft",
+                "probability (CDF)": 0.83,
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2000,
+                        2010,
+                        2020,
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        null,
+                        null,
+                        0.7,
+                        1.1,
+                        1.5,
+                        2.1,
+                        2.5,
+                        3.1,
+                        3.8,
+                        4.4,
+                        5.1,
+                        5.7,
+                        6.4,
+                        7.1,
+                        7.7,
+                        8.3
+                    ]
+                }
+            },
+            {
+                "description": "High end; less than a 5% change SLR exceeds",
+                "short name": "High end",
+                "units": "ft",
+                "probability (CDF)": 0.95,
+                "baseline year": 2000,
+                "data": {
+                    "x": [
+                        2000,
+                        2010,
+                        2020,
+                        2030,
+                        2040,
+                        2050,
+                        2060,
+                        2070,
+                        2080,
+                        2090,
+                        2100,
+                        2110,
+                        2120,
+                        2130,
+                        2140,
+                        2150
+                    ],
+                    "y": [
+                        null,
+                        null,
+                        0.9,
+                        1.3,
+                        1.9,
+                        2.6,
+                        3.1,
+                        3.8,
+                        4.8,
+                        5.8,
+                        6.9,
+                        8.1,
+                        9.4,
+                        10.9,
+                        12.4,
+                        13.8
+                    ]
+                }
+            }
+        ]
+    },
+    "cocat-2018-9414290": {
         "location name": "San Francisco, CA",
         "station ID (CO-OPS)": "9414290",
         "issuer": "California OPC 2018",
@@ -96,7 +329,7 @@
             }
         ]
     },
-    "9410660": {
+    "cocat-2018-9410660": {
         "location name": "Los Angeles, CA",
         "station ID (CO-OPS)": "9410660",
         "issuer": "California OPC 2018",
@@ -193,7 +426,7 @@
             }
         ]
     },
-    "9419750": {
+    "cocat-2018-9419750": {
         "location name": "Crescent City, CA",
         "station ID (CO-OPS)": "9419750",
         "issuer": "California OPC 2018",
@@ -320,7 +553,7 @@
             }
         ]
     },
-    "9410170": {
+    "cocat-2018-9410170": {
         "location name": "San Diego, CA",
         "station ID (CO-OPS)": "9410170",
         "issuer": "California OPC 2018",
@@ -447,7 +680,7 @@
             }
         ]
     },
-    "9418767": {
+    "cocat-2018-9418767": {
         "location name": "North Spit, CA",
         "station ID (CO-OPS)": "9418767",
         "issuer": "California OPC 2018",
