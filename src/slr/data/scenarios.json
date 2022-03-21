@@ -242,7 +242,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -272,7 +272,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -302,7 +302,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -339,7 +339,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -369,7 +369,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -399,7 +399,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -436,7 +436,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -476,7 +476,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -516,7 +516,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -563,7 +563,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -603,7 +603,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -643,7 +643,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -690,7 +690,7 @@
                 "short name": "Low Risk",
                 "units": "ft",
                 "probability (CDF)": 0.83,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -730,7 +730,7 @@
                 "short name": "Medium Risk",
                 "units": "ft",
                 "probability (CDF)": 0.995,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -770,7 +770,7 @@
                 "short name": "Extreme Risk",
                 "units": "ft",
                 "probability (CDF)": null,
-                "recommended by OPC": "yes",
+                "recommended by issuer": "yes",
                 "baseline year": 2000,
                 "data": {
                     "x": [
@@ -802,6 +802,101 @@
                         17.4,
                         20.1,
                         23.0
+                    ]
+                }
+            }
+        ]
+    },
+    "8518750": {
+        "location name": "The Battery, NY",
+        "station ID (CO-OPS)": "8518750",
+        "issuer": "NPCC3 2019",
+        "scenarios": [
+            {
+                "description": "Low Estimate (10th percentile)",
+                "short name": "Low Estimate",
+                "units": "ft",
+                "probability (CDF)": 0.1,
+                "recommended by issuer": "no",
+                "baseline year": 2002,
+                "data": {
+                    "x": [
+                        2020,
+                        2050,
+                        2080,
+                        2100
+                    ],
+                    "y": [
+                        0.17,
+                        0.67,
+                        1.08,
+                        1.25
+                    ]
+                }
+            },
+            {
+                "description": "Middle range (25th percentile)",
+                "short name": "Middle range 25%",
+                "units": "ft",
+                "probability (CDF)": 0.25,
+                "recommended by issuer": "no",
+                "baseline year": 2002,
+                "data": {
+                    "x": [
+                        2020,
+                        2050,
+                        2080,
+                        2100
+                    ],
+                    "y": [
+                        0.33,
+                        0.92,
+                        1.50,
+                        1.83
+                    ]
+                }
+            },
+            {
+                "description": "Middle range (75th percentile)",
+                "short name": "Middle range 75%",
+                "units": "ft",
+                "probability (CDF)": 0.75,
+                "recommended by issuer": "no",
+                "baseline year": 2002,
+                "data": {
+                    "x": [
+                        2020,
+                        2050,
+                        2080,
+                        2100
+                    ],
+                    "y": [
+                        0.67,
+                        1.75,
+                        3.25,
+                        4.17
+                    ]
+                }
+            },
+            {
+                "description": "High estimate (90th percentile)",
+                "short name": "High estimate",
+                "units": "ft",
+                "probability (CDF)": 0.90,
+                "recommended by issuer": "no",
+                "baseline year": 2002,
+                "data": {
+                    "x": [
+                        2020,
+                        2050,
+                        2080,
+                        2100
+                    ],
+                    "y": [
+                        0.83,
+                        2.5,
+                        4.83,
+                        6.25
                     ]
                 }
             }
