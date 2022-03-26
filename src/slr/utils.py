@@ -10,6 +10,7 @@ with open(Path(__file__).parent / "data/scenarios.json") as f:
 
 ALL_KEYS = [key_ for key_ in ALL_SCENARIOS.keys()]
 ALL_STATIONS = [value_["station ID (CO-OPS)"] for _, value_ in ALL_SCENARIOS.items()]
+ALL_ISSUERS = [value_["issuer"] for _, value_ in ALL_SCENARIOS.items()]
 
 
 def _show_available_locations(format: str = "list") -> typing.Union[list, DataFrame]:
@@ -19,7 +20,16 @@ def _show_available_locations(format: str = "list") -> typing.Union[list, DataFr
     if format == "list":
         return all_locations
     elif format == "dataframe":
-        return DataFrame(data=all_locations, columns=["Location"])
+        return (
+            # Build a clean dataframe showing what's available as custom scenarios
+            DataFrame.from_dict(
+                data={
+                    "Key": ALL_KEYS,
+                    "Location(s) covered": all_locations,
+                    "Issuer": ALL_ISSUERS
+                }
+            )
+        )
 
 
 # Provide list of all locations available in ALL_SCENARIOS
