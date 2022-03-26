@@ -40,6 +40,7 @@ class SLRProjections:
         self.location_name = data["location name"]
         self.station_ID = data["station ID (CO-OPS)"]
         self.issuer = data["issuer"]
+        self.url = data["URL"]
 
         # Record Scenarios
         scenarios = data["scenarios"]
@@ -66,7 +67,7 @@ class SLRProjections:
         self.shape = (len(self.scenarios),)
 
     @classmethod
-    def from_location(cls, location: typing.Union[str, int]):
+    def from_scenarios(cls, location: typing.Union[str, int]):
         """Generates a SLRProjections isinstance from a location contained within the
         ALL_LOCATIONS, ALL_STATIONS, or ALL_KEYS lists.
 
@@ -97,6 +98,22 @@ class SLRProjections:
         target_key = _validate_location(location=location)
         return cls(data=ALL_SCENARIOS[target_key])
 
+    @classmethod
+    def from_noaa(cls, noaa_id: str = None):
+        """Generates a SLRProjections instance from a NOAA ID using NOAA API.
+
+        Parameters
+        ----------
+        noaa_id : str
+            _description_
+
+        Raises
+        ------
+        NotImplemented
+            _description_
+        """
+        raise NotImplementedError("NOAA connector not implemented")
+
     @staticmethod
     def show_all_available_locations(
         format: str = "list",
@@ -112,7 +129,7 @@ class SLRProjections:
 
         Returns
         -------
-        list
+        list or DataFrame
             List of locations available for manipulation
         """
         return _show_available_locations(format=format)
@@ -238,6 +255,7 @@ class SLRProjections:
             * 'cm'
             * 'in'
             * 'ft'
+            * 'mm'
         inplace : bool, optional
             Wether the conversion is 'on the fly' (inplace=False),
             or if that conversion is burnt in the current SLRProjections instance

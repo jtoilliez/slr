@@ -18,7 +18,42 @@ SLR relies on three classes to organize SLR data:
 * `Scenario` contains `Data` describing a specific SLR trajectory
 * `Data` contains the timeline, units, and values for that SLR trajectory
 
+The class hierarchy is illustrated in the Class Diagram, below.
 
+```mermaid
+classDiagram
+    class Data
+    Data : +np.array x
+    Data : +np.array y
+    Data : +str units
+    Data : +convert()
+
+    class Scenario
+    Scenario : +string description
+    Scenario : +string short_name
+    Scenario : +float baseline_year
+    Scenario : +Data data
+    Scenario : +str units
+    Scenario : +dataframe() DataFrame
+    Scenario : +by_horizon_year() float
+
+    class SLRProjections
+    SLRProjections : +tuple shape
+    SLRProjections : +str location_name
+    SLRProjections : +scenarios [Scenario]
+    SLRProjections : +str station_ID
+    SLRProjections : +str issuer
+    SLRProjections : +pd.DataFrame dataframe
+    SLRProjections : +from_location() SLRProjections
+    SLRProjections : +show_all_available_locations() list
+    SLRProjections : +by_horizon_year() array
+    SLRProjections : +convert() array
+    SLRProjections : +plot() Axes
+    
+
+    Data "1" --* "1" Scenario
+    Scenario "*" --* "1" SLRProjections
+```
 
 ### Extensibility
 

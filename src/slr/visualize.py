@@ -20,6 +20,7 @@ def HistoricalVsProjections(
         * an integer, e.g., '0'
         * a station ID, e.g. '9419750'
         * a city e.g., 'Los Angeles, CA'
+        * a key from one of the custom scenarios, e.g., nj-dep-2021
     ax : plt.Axes, optional
         _description_, by default None
 
