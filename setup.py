@@ -24,4 +24,5 @@ setup(
     package_dir={"": "src"},
     python_requires=">=3.9",
     install_requires=["numpy", "pandas", "matplotlib", "pathlib"],
+    extras_requires={"dev": ["pytest", "pytest-cov", "flake8", "jupyter", "black"]},
 )
