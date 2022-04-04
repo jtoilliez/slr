@@ -7,6 +7,10 @@ from numpy import nan
 from slr.scenario import Scenario
 from pandas import DataFrame
 
+from logging import Logger
+
+logger = Logger(__name__)
+
 
 class NOAASLR:
 
