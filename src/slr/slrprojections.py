@@ -12,6 +12,7 @@ from slr.utils import (
     _validate_key,
 )
 
+
 # SLRProjections contains SLR Scenario objects for a given location
 class SLRProjections:
     def __init__(
@@ -58,6 +59,8 @@ class SLRProjections:
         """
 
         # Check that you have the right data in there
+        if not isinstance(data, dict):
+            raise TypeError("data needs to be dictionary")
         if data is not None:
             for attr in ["location name", "station ID (CO-OPS)", "scenarios"]:
                 if attr not in data:
@@ -102,7 +105,6 @@ class SLRProjections:
     @classmethod
     def from_builtin(cls, key: typing.Union[str, int]):
         """Generates a SLRProjections isinstance from one of the builtin scenarios.
-        Use the builtin references to invoke any scenario.
 
         Parameters
         ----------
@@ -110,7 +112,7 @@ class SLRProjections:
         A unique key defining the builtin scenarios item. It can be given as
         either:
 
-        * a location (e.g., 'nj-dep-2021')
+        * a location (e.g., 'New Jersey')
         * an int (e.g., '0')
         * a key from the scenarios.json file, e.g., 'cocat-2018-9414290'
 
@@ -119,7 +121,7 @@ class SLRProjections:
         Returns
         -------
         SLRProjections
-            SLRProjections instance at the specified location
+            SLRProjections instance corresponding to the key provided
         """
         target_key = _validate_key(key=key)
         return cls.from_dict(data=ALL_BUILTIN_SCENARIOS[target_key])
@@ -139,6 +141,9 @@ class SLRProjections:
         NotImplemented
             _description_
         """
+
+        # Invoke dedicated helper function in this one.
+
         raise NotImplementedError("NOAA connector not implemented")
 
     @staticmethod
