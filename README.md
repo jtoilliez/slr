@@ -1,8 +1,8 @@
-# Python Sea Level Rise (pysealevel)
-`pysealevel` is simple Python package designed to aggregate, load, and display sea level rise projectsion from multiple sources.
+# Python Sea Level Rise (sealevelrise)
+`sealevelrise` is simple Python package designed to aggregate, load, and display sea level rise projectsion from multiple sources.
 
 ## What SLR Does
-`pysealevel` provides convenient classes and methods to perform routine tasks most commmonly
+`sealevelrise` provides convenient classes and methods to perform routine tasks most commmonly
 encountered by practicioners in the civil industry:
 
 * Load sea-level rise projections for a specific location using builtin scenarios or from
@@ -83,39 +83,39 @@ SLR provides a very easy way to manipulate sea-level rise scenario datasets. The
 Assuming you installed the package or appended to PYTHONPATH, all that remains to do is to import the package:
 
 ```python
->>> import pysealevel
+>>> import sealevelrise
 ```
 
 ### Show All Builtin Scenarios
-From that point on, we can list all locations available in the `scenarios.json` file: these are as many `ScenarioPack` items:
+From that point on, we can list all locations available in the `scenarios.json` file: these are as many `SLRProjections` items:
 ```python
->>> slr.ScenarioPack.show_all_builtin_scenarios(format='list')
+>>> sealevelrise.SLRProjections.show_all_builtin_scenarios(format='list')
 ```
 
 The locations can be displayed as a `pandas.Dataframe` for further manipulation:
 ```python
->>> slr.SLRProjections.show_all_builtin_scenarios(format='dataframe')
+>>> sealevelrise.SLRProjections.show_all_builtin_scenarios(format='dataframe')
 ```
 
 ### Manipulating SLR Scenarios
-Let's load a `ScenarioPack` by invoking a builtin location:
+Let's load a `SLRProjections` by invoking a builtin location:
 ```python
->>> sf = slr.ScenarioPack.from_location_or_key(
+>>> sf = sealevelrise.SLRProjections.from_location_or_key(
     location_or_key="San Francisco, CA"
 )
 ```
 
 We could do the same using index notation:
 ```python
->>> sf = slr.ScenarioPack.from_index(index=1)
+>>> sf = sealevelrise.SLRProjections.from_index(index=1)
 ```
 
 Or we could do the same thing using a key from the `scenarios.json` file:
 ```python
->>> sf = slr.ScenarioPack.from_key(key="cocat-2018-9414290")
+>>> sf = sealevelrise.SLRProjections.from_key(key="cocat-2018-9414290")
 ```
 
-All the SLR projections contained within the `ScenarioPack` can be displayed in iPython and copy/pasted into a report
+All the SLR projections contained within the `SLRProjections` can be displayed in iPython and copy/pasted into a report
 ```python
 >>> sf.dataframe
 ```
@@ -130,7 +130,7 @@ In some cases, units may need to be converted. `SLR` offers on-the-fly capabilit
 The conversion takes place in-place. On-the-fly conversion is not (yet) supported.
 
 ### Visualization
-We can plot `Scenario` items within a `ScenarioPack` right away: all Scenario items are
+We can plot `Scenario` items within a `SLRProjections` right away: all Scenario items are
 plotted automatically by default.
 
 ```python
@@ -149,7 +149,7 @@ Here is what this should look like:
 
 ![projections](https://user-images.githubusercontent.com/46502166/143791203-32a194a6-169a-4bb7-81e0-087fb889ffcd.png)
 
-By default, all `Scenario` items within a given `ScenarioPack` will be plotted. 
+By default, all `Scenario` items within a given `SLRProjections` will be plotted. 
 To select specific `Scenario` items see Section **Drilling Into Specific Scenarios** below.
 
 ### Calculating Projections by a Certain Date
@@ -159,14 +159,14 @@ We can calculate the effective SLR projections by a certain date, e.g.:
 sf.by_horizon_year(2075, merge=False)
 ```
 
-We can also choose to merge that projection into the resultant dataframe, for presentation purposes. Note that the `ScenarioPack` item is not affected by the merging operation, it is only for displaying purposes.
+We can also choose to merge that projection into the resultant dataframe, for presentation purposes. Note that the `SLRProjections` item is not affected by the merging operation, it is only for displaying purposes.
 
 ```python
 sf.by_horizon_year(horizon_year=2075, merge=True)
 ```
 
 ### Drilling Into Specific Scenarios
-Each `ScenarioPack` item contains one or more `Scenario` items which can be conveniently retrieved using index notation:
+Each `SLRProjections` item contains one or more `Scenario` items which can be conveniently retrieved using index notation:
 
 ```python
 sf_scenario = sf[1]
@@ -206,7 +206,7 @@ You can attempt to retrieve the historical sea-level rise from NOAA servers. To 
 
 ## Customizing the `scenarios.json` File
 
-SLR works by loading a JSON file located under `.\data\scenarios.json`. The format of the file mimics the structure of `ScenarioPack`, `Scenario`, and `Data` class items. An example is shown for San Francisco, CA. The data was extracted from the 2018 State of California Sea-level Rise Guidance document published by the Ocean Council. SLR is built upon that publication but can be used to handle other guidelines, as long as the same nomenclature is used.
+SLR works by loading a JSON file located under `.\data\scenarios.json`. The format of the file mimics the structure of `SLRProjections`, `Scenario`, and `Data` class items. An example is shown for San Francisco, CA. The data was extracted from the 2018 State of California Sea-level Rise Guidance document published by the Ocean Council. SLR is built upon that publication but can be used to handle other guidelines, as long as the same nomenclature is used.
 
 ### Basic Structure
 The structure of the JSON file mimics the classes used in SLR. An extract of the file is shown below:
@@ -313,9 +313,9 @@ The structure of the JSON file mimics the classes used in SLR. An extract of the
 
 New locations can be added using the same nomenclature. Currently, the following fields are implemented:
 
-* "ID": a unique key for each `ScenarioPack` item
-  - "location name": the location for these SLR scenarios, e.g., "San Francisco, CA"; a unique location defines a given `ScenarioPack`
-  - "station ID (CO-OPS)": the NOAA or CO-OPS identification string for the location, if available, e.g, "9414290", a unique location defines a given `ScenarioPack`
+* "ID": a unique key for each `SLRProjections` item
+  - "location name": the location for these SLR scenarios, e.g., "San Francisco, CA"; a unique location defines a given `SLRProjections`
+  - "station ID (CO-OPS)": the NOAA or CO-OPS identification string for the location, if available, e.g, "9414290", a unique location defines a given `SLRProjections`
   - "scenarios": an array of JSON items containing specific `Scenario` items
 
 Each `Scenario` item consists of the following:

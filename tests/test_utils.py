@@ -1,4 +1,4 @@
-from slr.utils import ALL_SCENARIOS
+from sealevelrise.utils import ALL_SCENARIOS
 
 
 def test_health_json_data():

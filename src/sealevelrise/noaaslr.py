@@ -4,7 +4,7 @@ import urllib.request
 import warnings
 
 from numpy import nan
-from slr.scenario import Scenario
+from sealevelrise.scenario import Scenario
 from pandas import DataFrame
 
 from logging import Logger
@@ -13,7 +13,6 @@ logger = Logger(__name__)
 
 
 class NOAASLR:
-
     @cache
     def __init__(self, station_id: str = None, **kwargs) -> None:
 
@@ -46,11 +45,7 @@ class NOAASLR:
             except ConnectionError:
                 warnings.warn("Something came up while retrieving data from NOAA")
 
-        self._data = DataFrame.from_dict(
-            data
-        )
-
-
+        self._data = DataFrame.from_dict(data)
 
         # Organize the data in Scenario instance, NOAA provides 4 basic scenarios:
         # * Low
@@ -61,31 +56,30 @@ class NOAASLR:
         # There are confidence intervals but I'm going to skip for now
 
         noaa_scenarios = {
-            "Low" : {
+            "Low": {
                 "Description": "NOAA Low",
                 "Short Name": "NOAA Low",
-                "Probability" : nan,
+                "Probability": nan,
             }
         }
 
-        scenario_ = (
-            self._data[self._data.loc[:, "scenario"] == "Low"]
-        )
+        scenario_ = self._data[self._data.loc[:, "scenario"] == "Low"]
 
         self.sc = Scenario(
             description="NOAA Low",
             short_name="NOAA Low",
             units=self.units,
-            probability=.17,
+            probability=0.17,
             baseline_year=2005,
             data={
-                'x': scenario_.loc[:, "projectionYear"].values,
-                'y': scenario_.loc[:, "projectionRsl"].values
+                "x": scenario_.loc[:, "projectionYear"].values,
+                "y": scenario_.loc[:, "projectionRsl"].values,
             },
         )
 
     def __repr__(self) -> str:
         return "That's a NOAA SLR object"
+
 
 if __name__ == "__main__":
     ns = NOAASLR(station_id="9414290")

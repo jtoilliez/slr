@@ -4,8 +4,8 @@ from copy import deepcopy
 from matplotlib.pyplot import Axes, subplots
 from pandas import DataFrame, Series, concat
 
-from slr.scenario import Scenario
-from slr.utils import (
+from sealevelrise.scenario import Scenario
+from sealevelrise.utils import (
     ALL_BUILTIN_SCENARIOS,
     _check_units,
     _show_builtin_scenarios,
@@ -22,7 +22,7 @@ class SLRProjections:
         station_ID: str = None,
         issuer: str = None,
         url: str = None,
-        coerce_units: bool = True
+        coerce_units: bool = True,
     ) -> None:
         """SLRProjections contains SLR scenarios for a specific location defined
         by its name or NOAA ID (preferred).
@@ -73,7 +73,7 @@ class SLRProjections:
         station_ID = data["station ID (CO-OPS)"]
         issuer = data["issuer"]
         # Optional properties
-        url = data.pop('URL', None)
+        url = data.pop("URL", None)
 
         # Build the scenarios from the dictionary
         scenarios_data = data["scenarios"]
@@ -99,7 +99,7 @@ class SLRProjections:
             location_name=location_name,
             station_ID=station_ID,
             issuer=issuer,
-            url=url
+            url=url,
         )
 
     @classmethod
@@ -338,10 +338,10 @@ class SLRProjections:
 
 
 if __name__ == "__main__":
-    sf = SLRProjections.from_builtin(key='NPCC3-new-york-2019')
+    sf = SLRProjections.from_builtin(key="NPCC3-new-york-2019")
     print(sf)
     print(sf.scenarios[1].short_name)
     print(sf.url)
     print(sf.scenarios[1].by_horizon_year(horizon_year=2055))
     print(sf.scenarios[1].units)
-    print(SLRProjections.show_all_builtin_scenarios(format='dataframe'))
+    print(SLRProjections.show_all_builtin_scenarios(format="dataframe"))

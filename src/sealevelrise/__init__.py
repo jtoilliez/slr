@@ -1,4 +1,5 @@
-from slr.scenario import Scenario
-from slr.slrprojections import SLRProjections
-from slr.data import Data
-from slr.historical import HistoricalSLR
+__version__ = "0.1.1"
+from sealevelrise.scenario import Scenario
+from sealevelrise.slrprojections import SLRProjections
+from sealevelrise.data import Data
+from sealevelrise.historical import HistoricalSLR

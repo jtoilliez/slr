@@ -7,8 +7,8 @@ from typing import Union
 import numpy as np
 
 from functools import cache
-from slr.utils import _check_units
-from slr.slrprojections import SLRProjections
+from sealevelrise.utils import _check_units
+from sealevelrise.slrprojections import SLRProjections
 from pandas import Timestamp, DataFrame, date_range, DateOffset, Series
 
 
