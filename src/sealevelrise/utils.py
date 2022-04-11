@@ -6,17 +6,18 @@ from pandas import DataFrame
 M_TO_FT = 3.281
 
 with open(Path(__file__).parent / "data/scenarios.json") as f:
-    ALL_SCENARIOS = json.load(f)
+    ALL_BUILTIN_SCENARIOS = json.load(f)
 
-ALL_KEYS = [key_ for key_ in ALL_SCENARIOS.keys()]
-ALL_STATIONS = [value_["station ID (CO-OPS)"] for _, value_ in ALL_SCENARIOS.items()]
-ALL_ISSUERS = [value_["issuer"] for _, value_ in ALL_SCENARIOS.items()]
+ALL_KEYS = [key_ for key_ in ALL_BUILTIN_SCENARIOS.keys()]
+ALL_ISSUERS = [value_["issuer"] for _, value_ in ALL_BUILTIN_SCENARIOS.items()]
 
 
-def _show_available_locations(format: str = "list") -> typing.Union[list, DataFrame]:
+def _show_builtin_scenarios(format: str = "list") -> typing.Union[list, DataFrame]:
     if format not in ["list", "dataframe"]:
         raise ValueError("The format arg must be either 'list' or 'dataframe'.")
-    all_locations = [elem_["location name"] for _, elem_ in ALL_SCENARIOS.items()]
+    all_locations = [
+        elem_["location name"] for _, elem_ in ALL_BUILTIN_SCENARIOS.items()
+    ]
     if format == "list":
         return all_locations
     elif format == "dataframe":
@@ -32,8 +33,8 @@ def _show_available_locations(format: str = "list") -> typing.Union[list, DataFr
         )
 
 
-# Provide list of all locations available in ALL_SCENARIOS
-ALL_LOCATIONS = _show_available_locations(format="list")
+# Provide list of all locations available in ALL_BUILTIN_SCENARIOS
+ALL_LOCATIONS = _show_builtin_scenarios(format="list")
 
 
 # Check that units are valid
@@ -54,59 +55,51 @@ def _check_units(units: str) -> None:
 
 
 # Check that location is valid
-def _validate_location(location: typing.Union[str, int]) -> str:
+def _validate_key(key: typing.Union[str, int]) -> str:
     """Validates location, station, or key given to locate a SLRProjections item
 
     Parameters
     ----------
-    location : typing.Union[str, int]
-        A unique identifier defining the SLRProjections item. It can be given as
+    key : typing.Union[str, int]
+        A unique identifier referencing one of the builtin scenarios. It can be given as
         either:
 
-        * a str as a location name e.g., '"San Francisco, CA"',
-        * or a Station ID e.g., '"9414290"'
-        * or an int (e.g., '0')
+        * a location (e.g., 'New Jersey')
+        * an int (e.g., '0')
         * a key from the scenarios.json file, e.g., 'cocat-2018-9414290'
-
-        All describe the location to be used to load a specific
-        SLRProjections item.
 
         In case multiple matches are possible, the first match will be returned.
 
     Returns
     -------
     str
-        Key of the requested SLRProjections item
+        Unique key of the requested scenario
 
     Examples
     -------
-    Use the NOAA Station ID:
-    >>> utils._validate_location(location="9410660")
-    '9410660'
-
-    Use the location:
-    >>> utils._validate_location(location="Los Angeles, CA")
-    '9410660'
-
+    Use a location:
+    >>> utils._validate_key(key='New Jersey')
+    'nj-dep-2021'
+    Use a key:
+    >>> utils._validate_key(key='nj-dep-2021')
+    'nj-dep-2021'
     Use an index:
-    >>> utils._validate_location(location=0)
-    '9414290'
+    >>> utils._validate_key(location=0)
+    'nj-dep-2021'
     """
-    if isinstance(location, int):
-        if not (location in list(range(0, len(ALL_LOCATIONS)))):
+    if isinstance(key, int):
+        if not (key in list(range(0, len(ALL_LOCATIONS)))):
             raise IndexError(
-                "Index notation exceeds length of SLRProjections items available."
+                "Index notation exceeds length of builtin items available."
             )
         else:
-            target_key = ALL_KEYS[location]
-    elif isinstance(location, str):
+            target_key = ALL_KEYS[key]
+    elif isinstance(key, str):
         # Try these:
-        if location in ALL_LOCATIONS:
-            target_key = ALL_KEYS[ALL_LOCATIONS.index(location)]
-        elif location in ALL_KEYS:
-            target_key = location
-        elif location in ALL_STATIONS:
-            target_key = ALL_KEYS[ALL_STATIONS.index(location)]
+        if key in ALL_LOCATIONS:
+            target_key = ALL_KEYS[ALL_LOCATIONS.index(key)]
+        elif key in ALL_KEYS:
+            target_key = key
         else:
             raise KeyError(
                 "Make sure location is specified either as an "

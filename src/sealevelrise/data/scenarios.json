@@ -811,6 +811,7 @@
         "location name": "The Battery, NY",
         "station ID (CO-OPS)": "8518750",
         "issuer": "NPCC3 2019",
+        "URL": "",
         "scenarios": [
             {
                 "description": "Low Estimate (10th percentile)",

@@ -4,18 +4,26 @@ from copy import deepcopy
 from matplotlib.pyplot import Axes, subplots
 from pandas import DataFrame, Series, concat
 
-from .scenario import Scenario
-from .utils import (
-    ALL_SCENARIOS,
+from slr.scenario import Scenario
+from slr.utils import (
+    ALL_BUILTIN_SCENARIOS,
     _check_units,
-    _show_available_locations,
-    _validate_location,
+    _show_builtin_scenarios,
+    _validate_key,
 )
 
 
 # SLRProjections contains SLR Scenario objects for a given location
 class SLRProjections:
-    def __init__(self, data: dict = None, coerce_units: bool = True) -> None:
+    def __init__(
+        self,
+        scenarios: typing.Union[Scenario, typing.List[Scenario]] = None,
+        location_name: str = None,
+        station_ID: str = None,
+        issuer: str = None,
+        url: str = None,
+        coerce_units: bool = True
+    ) -> None:
         """SLRProjections contains SLR scenarios for a specific location defined
         by its name or NOAA ID (preferred).
 
@@ -27,32 +35,55 @@ class SLRProjections:
             If true, will harmonize units in all scenarios provided, by default True
 
         """
+
+        self.location_name = location_name
+        self.station_ID = station_ID
+        self.issuer = issuer
+        self.url = url
+        self.scenarios = scenarios
+        self.shape = (len(self.scenarios),)
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """Constructs a SLRProjections instance from a dictionary
+
+        Parameters
+        ----------
+        data : dict
+            Dictionary that has the basic info required to build SLRProjections
+
+        Returns
+        -------
+        SLRProjections
+            A new SLRProjections instance
+        """
+
+        # Check that you have the right data in there
+        if not isinstance(data, dict):
+            raise TypeError("data needs to be dictionary")
         if data is not None:
-            # Check that you have the right data in there
             for attr in ["location name", "station ID (CO-OPS)", "scenarios"]:
                 if attr not in data:
                     raise KeyError(f"The {attr} key is missing or mispelled.")
-
         else:
             raise ValueError("data was passed as None")
 
-        # Record properties
-        self.location_name = data["location name"]
-        self.station_ID = data["station ID (CO-OPS)"]
-        self.issuer = data["issuer"]
-        self.url = data["URL"]
+        # Record properties; optional are popped
+        location_name = data["location name"]
+        station_ID = data["station ID (CO-OPS)"]
+        issuer = data["issuer"]
+        # Optional properties
+        url = data.pop('URL', None)
 
-        # Record Scenarios
-        scenarios = data["scenarios"]
-        try:
-            len(scenarios)
-            self.scenarios = []
-        except TypeError:
-            raise TypeError("The Scenarios passed are not a list of Scenario objects")
+        # Build the scenarios from the dictionary
+        scenarios_data = data["scenarios"]
 
-        # Record all Scenario objects
-        for scenario_ in scenarios:
-            self.scenarios.append(
+        # Record all Scenario objects into a list of Scenario objects
+        scenarios_list = list()
+
+        # Iterate over each items in the dictionary
+        for scenario_ in scenarios_data:
+            scenarios_list.append(
                 Scenario(
                     description=scenario_["description"],
                     short_name=scenario_["short name"],
@@ -63,44 +94,42 @@ class SLRProjections:
                 )
             )
 
-        # Additional attributes
-        self.shape = (len(self.scenarios),)
+        return cls(
+            scenarios=scenarios_list,
+            location_name=location_name,
+            station_ID=station_ID,
+            issuer=issuer,
+            url=url
+        )
 
     @classmethod
-    def from_scenarios(cls, location: typing.Union[str, int]):
-        """Generates a SLRProjections isinstance from a location contained within the
-        ALL_LOCATIONS, ALL_STATIONS, or ALL_KEYS lists.
-
-        The recommended identifier is the key referring to a given set of
-        SLR projections.
+    def from_builtin(cls, key: typing.Union[str, int]):
+        """Generates a SLRProjections isinstance from one of the builtin scenarios.
 
         Parameters
         ----------
-        location : typing.Union[str, int]
-        A unique identifier defining the SLRProjections item. It can be given as
+        key : typing.Union[str, int]
+        A unique key defining the builtin scenarios item. It can be given as
         either:
 
-        * a str as a location name e.g., '"San Francisco, CA"',
-        * or a Station ID e.g., '"9414290"'
-        * or an int (e.g., '0')
+        * a location (e.g., 'New Jersey')
+        * an int (e.g., '0')
         * a key from the scenarios.json file, e.g., 'cocat-2018-9414290'
-
-        All describe the location to be used to load a specific
-        SLRProjections item.
 
         In case multiple matches are possible, the first match will be returned.
 
         Returns
         -------
         SLRProjections
-            SLRProjections instance at the specified location
+            SLRProjections instance corresponding to the key provided
         """
-        target_key = _validate_location(location=location)
-        return cls(data=ALL_SCENARIOS[target_key])
+        target_key = _validate_key(key=key)
+        return cls.from_dict(data=ALL_BUILTIN_SCENARIOS[target_key])
 
     @classmethod
     def from_noaa(cls, noaa_id: str = None):
         """Generates a SLRProjections instance from a NOAA ID using NOAA API.
+        The primary identifier is the NOAA station ID.
 
         Parameters
         ----------
@@ -112,14 +141,16 @@ class SLRProjections:
         NotImplemented
             _description_
         """
+
+        # Invoke dedicated helper function in this one.
+
         raise NotImplementedError("NOAA connector not implemented")
 
     @staticmethod
-    def show_all_available_locations(
+    def show_all_builtin_scenarios(
         format: str = "list",
     ) -> typing.Union[str, DataFrame]:
-        """Simple function that lists all functions available prior to loading a
-        specific SLRProjections instance
+        """Simple function that lists all builtin scenarios available
 
         Parameters
         ----------
@@ -132,7 +163,7 @@ class SLRProjections:
         list or DataFrame
             List of locations available for manipulation
         """
-        return _show_available_locations(format=format)
+        return _show_builtin_scenarios(format=format)
 
     def __repr__(self) -> str:
         s = (
@@ -304,3 +335,13 @@ class SLRProjections:
         ax.legend()
 
         return ax
+
+
+if __name__ == "__main__":
+    sf = SLRProjections.from_builtin(key='NPCC3-new-york-2019')
+    print(sf)
+    print(sf.scenarios[1].short_name)
+    print(sf.url)
+    print(sf.scenarios[1].by_horizon_year(horizon_year=2055))
+    print(sf.scenarios[1].units)
+    print(SLRProjections.show_all_builtin_scenarios(format='dataframe'))

@@ -1,20 +1,23 @@
-# SLR
-SLR is simple package designed to manipulate sea-level projections using the Python language.
+# Python Sea Level Rise (pysealevel)
+`pysealevel` is simple Python package designed to aggregate, load, and display sea level rise projectsion from multiple sources.
 
 ## What SLR Does
-SLR relies on a single configuration file, named `scenarios.json` to load pre-configured sea-level rise scenarios at specific locations, each wrapped under its own `ScenarioPack` class item. SLR provides convenient classes to perform the following routine tasks:
+`pysealevel` provides convenient classes and methods to perform routine tasks most commmonly
+encountered by practicioners in the civil industry:
 
-* Load sea-level rise projections for a specific location
+* Load sea-level rise projections for a specific location using builtin scenarios or from
+or a variety of APIs and methods
 * Display trajectories over time as plots or tables
 * Evaluate sea-level rise offset by a certain horizon date
 * Compare risk-based sea-level rise trajectories
 * Compare historical and future trajectories
 * Convert units and modify reference water levels
+* Combine projections with historical trends retrieved from NOAA API
 
 ### Basic Structure
 SLR relies on three classes to organize SLR data:
 
-* `SLRProjections` contains a collection of `Scenario` items
+* `SLRProjections` contains a collection of `Scenario` items for a given location (e.g., a city or a state)
 * `Scenario` contains `Data` describing a specific SLR trajectory
 * `Data` contains the timeline, units, and values for that SLR trajectory
 
@@ -55,24 +58,22 @@ classDiagram
     Scenario "*" --* "1" SLRProjections
 ```
 
+### Builtin Scenarios and Online Sources
+Scenarios can be loaded from a variety of sources including:
+
+* use one of the many builtin scenarios (see under `\data\scenarios.json`)
+* invoke NOAA API for the latest set of projections
+
 ### Extensibility
 
-Custom scenarios can also be built using the `SLRProjections`, `Scenario`, and `Data` class nomenclature. More `SLRProjections` items can be added by modifying and contributing to the `scenarios.json` file.
+Add your own custom builtin scenarios by modifying and contributing to the `scenarios.json` file.
 
 ## Installation
-The best way to install the package is to pip install directly from GitHub.com, or cloning the repo on your local machine. Activate your environment and type:
+The preferred way is to pip install directly from GitHub.com into a virtual environment:
 
 ```python
 >>> python -m pip install <absolute_cloned_repo_root_directory>
 ```
-
-An alternative is to temporarily add the path to the `src` folder to PYTHONPATH or invoking the following at the beginning of a `Jupyter` notebook:
-
-```python
->>> sys.path.append(<absolute_cloned_repo_src_directory>)
-```
-
-Note in the above that the string appended to the PYTHONPATH should point to the **`src`** path, not the root folder location!
 
 ## Quickstart (Jupyter)
 
@@ -82,36 +83,36 @@ SLR provides a very easy way to manipulate sea-level rise scenario datasets. The
 Assuming you installed the package or appended to PYTHONPATH, all that remains to do is to import the package:
 
 ```python
->>> import slr
+>>> import pysealevel
 ```
 
-### Show All Available Locations
+### Show All Builtin Scenarios
 From that point on, we can list all locations available in the `scenarios.json` file: these are as many `ScenarioPack` items:
 ```python
->>> slr.ScenarioPack.show_all_available_locations(format='list')
+>>> slr.ScenarioPack.show_all_builtin_scenarios(format='list')
 ```
 
 The locations can be displayed as a `pandas.Dataframe` for further manipulation:
 ```python
->>> slr.SLRProjections.show_all_available_locations(format='dataframe')
+>>> slr.SLRProjections.show_all_builtin_scenarios(format='dataframe')
 ```
 
 ### Manipulating SLR Scenarios
-Let's load a `ScenarioPack` by invoking a specific location:
+Let's load a `ScenarioPack` by invoking a builtin location:
 ```python
 >>> sf = slr.ScenarioPack.from_location_or_key(
-    location_or_key="San Francisco, CA
+    location_or_key="San Francisco, CA"
 )
 ```
 
 We could do the same using index notation:
 ```python
->>> sf = slr.ScenarioPack.from_index(index=0)
+>>> sf = slr.ScenarioPack.from_index(index=1)
 ```
 
 Or we could do the same thing using a key from the `scenarios.json` file:
 ```python
->>> sf = slr.ScenarioPack.from_key(key="San Francisco")
+>>> sf = slr.ScenarioPack.from_key(key="cocat-2018-9414290")
 ```
 
 All the SLR projections contained within the `ScenarioPack` can be displayed in iPython and copy/pasted into a report
