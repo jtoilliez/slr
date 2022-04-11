@@ -1,6 +1,5 @@
 # Python Sea Level Rise (pysealevel)
-`pysealevel` is simple Python package designed to load, manipulate, and display
-sea-level projection data.
+`pysealevel` is simple Python package designed to aggregate, load, and display sea level rise projectsion from multiple sources.
 
 ## What SLR Does
 `pysealevel` provides convenient classes and methods to perform routine tasks most commmonly
