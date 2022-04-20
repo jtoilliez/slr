@@ -30,7 +30,7 @@ class HistoricalSLR:
         Properties describing the HistoricalSLR object as provided by NOAA.
     from_slrprojections(cls, slrprojections):
         Will attempt to retrieve historical SLR information from NOAA servers using
-        a SLRProjections item as seed.s
+        a SLRProjections instance as a seed.
     """
 
     @cache

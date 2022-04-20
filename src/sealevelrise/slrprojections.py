@@ -19,7 +19,7 @@ class SLRProjections:
         self,
         scenarios: typing.Union[Scenario, typing.List[Scenario]] = None,
         location_name: str = None,
-        station_ID: str = None,
+        station_id: str = None,
         issuer: str = None,
         url: str = None,
         coerce_units: bool = True,
@@ -37,7 +37,7 @@ class SLRProjections:
         """
 
         self.location_name = location_name
-        self.station_ID = station_ID
+        self.station_id = station_id
         self.issuer = issuer
         self.url = url
         self.scenarios = scenarios
@@ -70,7 +70,7 @@ class SLRProjections:
 
         # Record properties; optional are popped
         location_name = data["location name"]
-        station_ID = data["station ID (CO-OPS)"]
+        station_id = data["station ID (CO-OPS)"]
         issuer = data["issuer"]
         # Optional properties
         url = data.pop("URL", None)
@@ -97,7 +97,7 @@ class SLRProjections:
         return cls(
             scenarios=scenarios_list,
             location_name=location_name,
-            station_ID=station_ID,
+            station_id=station_id,
             issuer=issuer,
             url=url,
         )
@@ -127,14 +127,15 @@ class SLRProjections:
         return cls.from_dict(data=ALL_BUILTIN_SCENARIOS[target_key])
 
     @classmethod
-    def from_noaa(cls, noaa_id: str = None):
+    def from_noaa(cls, noaa_station_id: str = None, **kwargs):
         """Generates a SLRProjections instance from a NOAA ID using NOAA API.
         The primary identifier is the NOAA station ID.
 
         Parameters
         ----------
-        noaa_id : str
-            _description_
+        noaa_station_id : str
+            Station identifier, e.g.:
+            * '9414290'
 
         Raises
         ------

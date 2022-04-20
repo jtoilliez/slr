@@ -23,8 +23,8 @@ setup(
     author="Jean O. Toilliez",
     author_email="jeantoilliez@gmail.com",
     description=(
-        "Small utility for fetching, combining, and manipulating Sea Level Rise Projections"
-        " from various sources for engineering calculations"
+        "Small utility for fetching, combining, and manipulating Sea Level Rise "
+        "Projections from various sources for engineering calculations"
     ),
     url="https://github.com/jtoilliez/slr",
     long_description=long_description,
