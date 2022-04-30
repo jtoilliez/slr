@@ -3,7 +3,7 @@
 
 ## What SLR Does
 `sealevelrise` provides convenient classes and methods to perform routine tasks most commmonly
-encountered by practicioners in the civil industry:
+encountered by practicioners in the civil and risk industry:
 
 * Load sea-level rise projections for a specific location using builtin scenarios or from
 or a variety of APIs and methods
@@ -68,19 +68,21 @@ Scenarios can be loaded from a variety of sources including:
 
 Add your own custom builtin scenarios by modifying and contributing to the `scenarios.json` file.
 
-## Installation
-The preferred way is to pip install directly from GitHub.com into a virtual environment:
+## Installing `sealevelrise`
+We're on PyPi:
 
 ```python
->>> python -m pip install <absolute_cloned_repo_root_directory>
+pip install sealevelrise
 ```
 
 ## Quickstart (Jupyter)
 
 SLR provides a very easy way to manipulate sea-level rise scenario datasets. The SLR package was built with convenience in mind and is designed to facilite operations commonly encountered when dealing with sea-level rise projections at specific locations. It is primarily designed to be used within Jupyter and is geared toward practitioners who need to publish their findings in reports.
 
+
+
 ### Importing SLR
-Assuming you installed the package or appended to PYTHONPATH, all that remains to do is to import the package:
+Assuming you installed the package, import most functions by invoking the import command:
 
 ```python
 >>> import sealevelrise

@@ -1,4 +1,3 @@
-from functools import cache
 import json
 import urllib.request
 import warnings
@@ -8,7 +7,7 @@ from sealevelrise.slrprojections import SLRProjections
 from pandas import DataFrame
 
 
-class NOAASLRProjections(SLRProjections):
+class NOAAProjections(SLRProjections):
     def __init__(self, station_id: str = None, **kwargs) -> None:
 
         # NOAA returns cm if metric is selected; in if english is selected
@@ -117,5 +116,5 @@ class NOAASLRProjections(SLRProjections):
 
 
 if __name__ == "__main__":
-    ns = NOAASLRProjections(station_id="9414290")
+    ns = NOAAProjections(station_id="9414290")
     print(ns.scenarios[0])

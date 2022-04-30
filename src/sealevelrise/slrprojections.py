@@ -126,27 +126,6 @@ class SLRProjections:
         target_key = _validate_key(key=key)
         return cls.from_dict(data=ALL_BUILTIN_SCENARIOS[target_key])
 
-    @classmethod
-    def from_noaa(cls, noaa_station_id: str = None, **kwargs):
-        """Generates a SLRProjections instance from a NOAA ID using NOAA API.
-        The primary identifier is the NOAA station ID.
-
-        Parameters
-        ----------
-        noaa_station_id : str
-            Station identifier, e.g.:
-            * '9414290'
-
-        Raises
-        ------
-        NotImplemented
-            _description_
-        """
-
-        # Invoke dedicated helper function in this one.
-
-        raise NotImplementedError("NOAA connector not implemented")
-
     @staticmethod
     def show_all_builtin_scenarios(
         format: str = "list",

@@ -19,7 +19,7 @@ def _show_builtin_scenarios(format: str = "list") -> typing.Union[list, DataFram
         elem_["location name"] for _, elem_ in ALL_BUILTIN_SCENARIOS.items()
     ]
     if format == "list":
-        return all_locations
+        return ALL_KEYS
     elif format == "dataframe":
         return (
             # Build a clean dataframe showing what's available as custom scenarios

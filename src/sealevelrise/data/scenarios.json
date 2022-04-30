@@ -808,10 +808,10 @@
         ]
     },
     "NPCC3-new-york-2019": {
-        "location name": "The Battery, NY",
-        "station ID (CO-OPS)": "8518750",
-        "issuer": "NPCC3 2019",
-        "URL": "",
+        "location name": "New York City",
+        "station ID (CO-OPS)": null,
+        "issuer": "The New York Academy of Sciences, New York City Panel on Climate Change 2019 Report Executive Summary",
+        "URL": "https://nyaspubs.onlinelibrary.wiley.com/doi/10.1111/nyas.14008",
         "scenarios": [
             {
                 "description": "Low Estimate (10th percentile)",
@@ -837,7 +837,7 @@
             },
             {
                 "description": "Middle range (25th percentile)",
-                "short name": "Middle range 25%",
+                "short name": "Middle Range 25%",
                 "units": "ft",
                 "probability (CDF)": 0.25,
                 "recommended by issuer": "no",
@@ -859,7 +859,7 @@
             },
             {
                 "description": "Middle range (75th percentile)",
-                "short name": "Middle range 75%",
+                "short name": "Middle Range 75%",
                 "units": "ft",
                 "probability (CDF)": 0.75,
                 "recommended by issuer": "no",
@@ -898,6 +898,24 @@
                         2.5,
                         4.83,
                         6.25
+                    ]
+                }
+            },
+            {
+                "description": "Antarctic Rapid Ice Melt (ARIM) Scenario for Risk Awareness",
+                "short name": "ARIM",
+                "units": "ft",
+                "probability (CDF)": null,
+                "recommended by issuer": "no",
+                "baseline year": 2002,
+                "data": {
+                    "x": [
+                        2080,
+                        2100
+                    ],
+                    "y": [
+                        6.75,
+                        9.5
                     ]
                 }
             }
