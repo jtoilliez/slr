@@ -1,6 +1,10 @@
 import typing
 from copy import deepcopy
 
+import json
+import urllib.request
+import warnings
+
 from matplotlib.pyplot import Axes, subplots
 from pandas import DataFrame, Series, concat
 
@@ -13,8 +17,9 @@ from sealevelrise.utils import (
 )
 
 
-# SLRProjections contains SLR Scenario objects for a given location
-class SLRProjections:
+# Scenarios contains multiple Scenario objects for a given location,
+# as well as additional metadata
+class Scenarios:
     def __init__(
         self,
         scenarios: typing.Union[Scenario, typing.List[Scenario]] = None,
@@ -24,7 +29,7 @@ class SLRProjections:
         url: str = None,
         coerce_units: bool = True,
     ) -> None:
-        """SLRProjections contains SLR scenarios for a specific location defined
+        """Scenarios contains SLR scenarios for a specific location defined
         by its name or NOAA ID (preferred).
 
         Parameters
@@ -45,17 +50,17 @@ class SLRProjections:
 
     @classmethod
     def from_dict(cls, data: dict):
-        """Constructs a SLRProjections instance from a dictionary
+        """Constructs a Scenarios instance from a dictionary
 
         Parameters
         ----------
         data : dict
-            Dictionary that has the basic info required to build SLRProjections
+            Dictionary that has the basic info required to build Scenarios
 
         Returns
         -------
-        SLRProjections
-            A new SLRProjections instance
+        Scenarios
+            A new Scenarios instance
         """
 
         # Check that you have the right data in there
@@ -104,7 +109,7 @@ class SLRProjections:
 
     @classmethod
     def from_builtin(cls, key: typing.Union[str, int]):
-        """Generates a SLRProjections isinstance from one of the builtin scenarios.
+        """Generates a Scenarios isinstance from one of the builtin scenarios.
 
         Parameters
         ----------
@@ -120,11 +125,96 @@ class SLRProjections:
 
         Returns
         -------
-        SLRProjections
-            SLRProjections instance corresponding to the key provided
+        Scenarios
+            Scenarios instance corresponding to the key provided
         """
         target_key = _validate_key(key=key)
         return cls.from_dict(data=ALL_BUILTIN_SCENARIOS[target_key])
+
+    @classmethod
+    def from_noaa(cls, station_id: str = None, **kwargs):
+        # NOAA returns cm if metric is selected; in if english is selected
+        _report_year = kwargs.pop("Report Year", 2022)
+        _units = kwargs.pop("Data Units", "metric")
+        if _units == "metric":
+            units = "cm"
+        else:
+            units = "in"
+
+        _station_ID = station_id
+        _base_URL = (
+            "https://api.tidesandcurrents.noaa.gov/dpapi/prod/webapi/product"
+            "/slr_projections.json"
+        )
+
+        # Get the trend object from NOAA API
+        _link = (
+            rf"{_base_URL}"
+            rf"/?station={_station_ID}"
+            rf"&units={_units}"
+            rf"&report_year={_report_year}"
+        )
+
+        # Load and append
+        with urllib.request.urlopen(_link) as url:
+            try:
+                data = json.loads(url.read())["Scenarios"]
+            except ConnectionError:
+                warnings.warn("Something came up while retrieving data from NOAA")
+
+        _data = DataFrame.from_dict(data)
+
+        # NOAA has specific scenarios, and these are their properties
+        noaa_scenario_props = {
+            "Low": {
+                "Description": "NOAA Low",
+                "Short Name": "Low",
+                "Probability": None,
+            },
+            "Intermediate-Low": {
+                "Description": "NOAA Intermediate-Low",
+                "Short Name": "Intermediate-Low",
+                "Probability": None,
+            },
+            "Intermediate": {
+                "Description": "NOAA Intermediate",
+                "Short Name": "Intermediate",
+                "Probability": None,
+            },
+            "Intermediate-High": {
+                "Description": "NOAA Intermediate-High",
+                "Short Name": "Intermediate-High",
+                "Probability": None,
+            },
+            "High": {
+                "Description": "NOAA High",
+                "Short Name": "High",
+                "Probability": None,
+            },
+        }
+
+        # Launch the sequence and create the list of scenarios
+        scenarios = list()
+        for key_ in noaa_scenario_props.keys():
+            scenario_ = _data[_data.loc[:, "scenario"] == key_]
+            scenarios.append(
+                Scenario(
+                    description=noaa_scenario_props[key_]["Description"],
+                    short_name=noaa_scenario_props[key_]["Short Name"],
+                    units=units,
+                    probability=noaa_scenario_props[key_]["Probability"],
+                    baseline_year=2005,
+                    data={
+                        "x": scenario_.loc[:, "projectionYear"].values,
+                        "y": scenario_.loc[:, "projectionRsl"].values,
+                    },
+                )
+            )
+        
+        # The name of the location is retrieved from the last scenario_ chunk
+        location_name = scenario_.loc[:, "stationName"].values[0]
+
+
 
     @staticmethod
     def show_all_builtin_scenarios(
@@ -256,7 +346,7 @@ class SLRProjections:
 
     def convert(self, to_units: str, inplace: bool = False) -> DataFrame:
         """Provides on the fly or inplace units conversion for all Scenarios
-        within a SLRProjections instance.
+        within a Scenarios instance.
 
         Parameters
         ----------
@@ -269,7 +359,7 @@ class SLRProjections:
             * 'mm'
         inplace : bool, optional
             Wether the conversion is 'on the fly' (inplace=False),
-            or if that conversion is burnt in the current SLRProjections instance
+            or if that conversion is burnt in the current Scenarios instance
             (inplace=Trie). By default set to False (on-the-fly behavior)
 
         Returns
@@ -318,10 +408,10 @@ class SLRProjections:
 
 
 if __name__ == "__main__":
-    sf = SLRProjections.from_builtin(key="NPCC3-new-york-2019")
+    sf = Scenarios.from_builtin(key="NPCC3-new-york-2019")
     print(sf)
     print(sf.scenarios[1].short_name)
     print(sf.url)
     print(sf.scenarios[1].by_horizon_year(horizon_year=2055))
     print(sf.scenarios[1].units)
-    print(SLRProjections.show_all_builtin_scenarios(format="dataframe"))
+    print(Scenarios.show_all_builtin_scenarios(format="dataframe"))

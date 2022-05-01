@@ -8,7 +8,7 @@ import numpy as np
 
 from functools import cache
 from sealevelrise.utils import _check_units
-from sealevelrise.slrprojections import SLRProjections
+from sealevelrise.slrprojections import Scenarios
 from pandas import Timestamp, DataFrame, date_range, DateOffset, Series
 
 
@@ -28,9 +28,9 @@ class HistoricalSLR:
     --------
     noaa_properties(format):
         Properties describing the HistoricalSLR object as provided by NOAA.
-    from_slrprojections(cls, slrprojections):
+    from_Scenarios(cls, Scenarios):
         Will attempt to retrieve historical SLR information from NOAA servers using
-        a SLRProjections instance as a seed.
+        a Scenarios instance as a seed.
     """
 
     @cache
@@ -148,13 +148,13 @@ class HistoricalSLR:
         return ts
 
     @classmethod
-    def from_slrprojections(cls, slrprojections: SLRProjections = None):
-        # Read the station ID from the slrprojections
-        location = slrprojections.station_ID
-        units = slrprojections.units
+    def from_Scenarios(cls, Scenarios: Scenarios = None):
+        # Read the station ID from the Scenarios
+        location = Scenarios.station_ID
+        units = Scenarios.units
         if not isinstance(units, str):
             raise TypeError(
-                "There are mixed units in the SLRProjections object."
+                "There are mixed units in the Scenarios object."
                 "Cannot infer units."
             )
         return cls(station_ID=location, units=units)

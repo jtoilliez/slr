@@ -1,12 +1,12 @@
 from sealevelrise.scenario import Scenario
-from sealevelrise.slrprojections import SLRProjections
+from sealevelrise.slrprojections import Scenarios
 
 from sealevelrise.utils import ALL_BUILTIN_SCENARIOS, _validate_key
 
 
-class BuiltinProjections(SLRProjections):
+class BuiltinProjections(Scenarios):
     def __init__(self, key: str):
-        """Generates a SLRProjections isinstance from one of the builtin scenarios.
+        """Generates a Scenarios isinstance from one of the builtin scenarios.
 
         Parameters
         ----------
@@ -15,8 +15,8 @@ class BuiltinProjections(SLRProjections):
 
         Returns
         -------
-        SLRProjections
-            A SLRProjections instance corresponding to the key provided
+        Scenarios
+            A Scenarios instance corresponding to the key provided
         """
 
         target_key = _validate_key(key=key)

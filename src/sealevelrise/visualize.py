@@ -1,5 +1,5 @@
-from .historical import HistoricalSLR
-from .slrprojections import SLRProjections
+from sealevelrise.historical import HistoricalSLR
+from sealevelrise.slrprojections import Scenarios
 import matplotlib.pyplot as plt
 from typing import Union
 
@@ -8,7 +8,7 @@ def HistoricalVsProjections(
         location: Union[str, int],
         ax: plt.Axes = None
 ) -> plt.Axes:
-    """Will match two objects, HistoricalSLR and SLRProjections
+    """Will match two objects, HistoricalSLR and Scenarios
     given a location and make a combined plot. Useful when looking
     for a quick figure.
 
@@ -16,7 +16,7 @@ def HistoricalVsProjections(
     ----------
     location : Union[str, int]
         Use the same int, str nomenclature as that used for creating
-        a new SLRProjections object, i.e.:
+        a new Scenarios object, i.e.:
         * an integer, e.g., '0'
         * a station ID, e.g. '9419750'
         * a city e.g., 'Los Angeles, CA'
@@ -30,13 +30,13 @@ def HistoricalVsProjections(
         _description_
     """
 
-    # Create the SLRProjections instance:
-    ps = SLRProjections.from_location(location=location)
+    # Create the Scenarios instance:
+    ps = Scenarios.from_location(location=location)
     # Convert to 'mm'
     ps.convert(to_units='mm', inplace=True)
 
     # Create the Historical instance:
-    hs = HistoricalSLR.from_slrprojections(slrprojections=ps)
+    hs = HistoricalSLR.from_Scenarios(Scenarios=ps)
 
     # Create an ax figure if none provided
     if ax is None:
